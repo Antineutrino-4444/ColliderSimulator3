@@ -357,8 +357,10 @@ public class ControlRoomScreen extends ScreenAdapter {
 
         // Second line: luminosity + time
         smallFont.setColor(DIM_TEXT);
+        double lumiBankFb = sim.getLumiBank().get("CMS") != null
+                ? sim.getLumiBank().get("CMS").totalFb() : sim.getIntegratedLumiFb();
         String line2 = String.format("L=%.2e cm^-2s^-1  Int.L=%.3f fb^-1  Events=%,d  Year %d Day %d [%s]",
-                sim.getInstLuminosity(), sim.getIntegratedLumiFb(),
+                sim.getInstLuminosity(), lumiBankFb,
                 sim.getTotalEvents(), timeManager.getYear(), timeManager.getDay(),
                 timeManager.getMode().name());
         smallFont.draw(batch, line2, MARGIN + 6, y - 26);
@@ -505,6 +507,14 @@ public class ControlRoomScreen extends ScreenAdapter {
         y -= 22;
         bodyFont.draw(batch, String.format("Int. L: %.4f fb^-1", sim.getIntegratedLumiFb()), x, y);
         y -= 22;
+
+        // Per-detector luminosity from LumiBank
+        var lumiBank = sim.getLumiBank();
+        bodyFont.setColor(DIM_TEXT);
+        double cmsFb = lumiBank.get("CMS") != null ? lumiBank.get("CMS").totalFb() : 0;
+        bodyFont.draw(batch, String.format("  CMS: %.4f fb^-1", cmsFb), x, y);
+        y -= 18;
+
         bodyFont.setColor(ACCENT_GREEN);
         bodyFont.draw(batch, String.format("Total events: %,d", sim.getTotalEvents()), x, y);
         y -= 30;

@@ -4,6 +4,7 @@ import com.lhcsim.game.campaign.Era;
 import com.lhcsim.game.controlroom.AlertSystem;
 import com.lhcsim.game.controlroom.SubsystemStatus;
 import com.lhcsim.game.economy.BeamTimeManager;
+import com.lhcsim.game.economy.LumiBank;
 import com.lhcsim.physics.beam.Bunch;
 import com.lhcsim.physics.beam.TwissParameters;
 import com.lhcsim.physics.collision.CrossSectionTable;
@@ -77,6 +78,7 @@ public class SimulationManager {
 
     private final List<SubsystemStatus> subsystems = new ArrayList<>();
     private final Map<String, Long> eventsByProcess = new LinkedHashMap<>();
+    private final LumiBank lumiBank = new LumiBank();
 
     private double alertCooldown;
     private double subsystemDegradeCooldown;
@@ -197,6 +199,9 @@ public class SimulationManager {
         double deltaLumiFb = LuminosityCalculator.toInverseFemtobarns(deltaLumiCm2);
         integratedLumiFb += deltaLumiFb;
 
+        // Accumulate into the per-detector LumiBank (CMS as primary detector)
+        lumiBank.accumulate(LumiBank.CMS, instLuminosity, deltaSeconds);
+
         // Convert to pb for event generation (1 fb = 1000 pb)
         double deltaLumiPb = deltaLumiFb * 1000.0;
 
@@ -303,4 +308,5 @@ public class SimulationManager {
     public Bunch getBeam1()                   { return beam1; }
     public Bunch getBeam2()                   { return beam2; }
     public FastDetectorSim getDetectorSim()   { return detectorSim; }
+    public LumiBank getLumiBank()             { return lumiBank; }
 }
