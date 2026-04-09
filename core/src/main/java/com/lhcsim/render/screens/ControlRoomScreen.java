@@ -236,17 +236,21 @@ public class ControlRoomScreen extends ScreenAdapter {
     public void render(float delta) {
         animTime += delta;
 
-        // Update simulation
-        if (timeManager.getMode() != TimeManager.TimeMode.PAUSED) {
+        // Update simulation (and generate new events) only when not paused
+        boolean simRunning = timeManager.getMode() != TimeManager.TimeMode.PAUSED;
+        if (simRunning) {
             sim.update(delta);
         }
 
-        // Feed new events to discovery histograms & event display
+        // Feed new events to discovery histograms & event display.
+        // sim.update() clears lastBatchEvents at the start of each call,
+        // so we only see genuinely new events here; when paused the list
+        // is empty and nothing is accumulated.
         List<PhysicsEvent> lastEvents = sim.getLastBatchEvents();
         if (!lastEvents.isEmpty()) {
             discovery.accumulateEvents(lastEvents);
             for (PhysicsEvent ev : lastEvents) {
-                eventLog[eventLogHead] = String.format("#%d %s  \u221as=%.1f TeV",
+                eventLog[eventLogHead] = String.format("#%d %s  sqrt(s)=%.1f TeV",
                         ev.eventNumber(), ev.processName(), ev.sqrtS());
                 eventLogHead = (eventLogHead + 1) % EVENT_LOG_SIZE;
             }
@@ -339,7 +343,7 @@ public class ControlRoomScreen extends ScreenAdapter {
 
         // Era info
         bodyFont.setColor(Color.WHITE);
-        String eraText = String.format("Era %d: %s | %s | \u221as = %.1f TeV",
+        String eraText = String.format("Era %d: %s | %s | sqrt(s) = %.1f TeV",
                 era.number(), era.name(), era.activeMachine(), era.sqrtS());
         layout.setText(bodyFont, eraText);
         bodyFont.draw(batch, eraText, w * 0.35f, y - 4);
@@ -347,13 +351,13 @@ public class ControlRoomScreen extends ScreenAdapter {
         // Beam status indicator
         Color beamColor = sim.isBeamOn() ? ACCENT_GREEN : ACCENT_RED;
         bodyFont.setColor(beamColor);
-        String beamText = sim.isBeamOn() ? "\u25CF BEAM ON" : "\u25CB BEAM OFF";
+        String beamText = sim.isBeamOn() ? "* BEAM ON" : "o BEAM OFF";
         layout.setText(bodyFont, beamText);
         bodyFont.draw(batch, beamText, w - layout.width - MARGIN - 6, y - 4);
 
         // Second line: luminosity + time
         smallFont.setColor(DIM_TEXT);
-        String line2 = String.format("L=%.2e cm\u207b\u00b2s\u207b\u00b9  \u222bL=%.3f fb\u207b\u00b9  Events=%,d  Year %d Day %d [%s]",
+        String line2 = String.format("L=%.2e cm^-2s^-1  Int.L=%.3f fb^-1  Events=%,d  Year %d Day %d [%s]",
                 sim.getInstLuminosity(), sim.getIntegratedLumiFb(),
                 sim.getTotalEvents(), timeManager.getYear(), timeManager.getDay(),
                 timeManager.getMode().name());
@@ -384,13 +388,13 @@ public class ControlRoomScreen extends ScreenAdapter {
         float cx = w * 0.2f;
         TimeManager.TimeMode mode = timeManager.getMode();
         bodyFont.setColor(mode == TimeManager.TimeMode.PAUSED ? ACCENT_YELLOW : DIM_TEXT);
-        bodyFont.draw(batch, "[1]\u23F8", cx, y);
+        bodyFont.draw(batch, "[1]||", cx, y);
         cx += 55;
         bodyFont.setColor(mode == TimeManager.TimeMode.NORMAL ? ACCENT_GREEN : DIM_TEXT);
-        bodyFont.draw(batch, "[2]\u25B6", cx, y);
+        bodyFont.draw(batch, "[2]>", cx, y);
         cx += 55;
         bodyFont.setColor(mode == TimeManager.TimeMode.FAST ? ACCENT_CYAN : DIM_TEXT);
-        bodyFont.draw(batch, "[3]\u23E9", cx, y);
+        bodyFont.draw(batch, "[3]>>", cx, y);
 
         // Additional controls
         cx += 80;
@@ -465,7 +469,7 @@ public class ControlRoomScreen extends ScreenAdapter {
                     SimulationManager.NUM_BUNCHES,
                     sim.getBeam1().getNumParticles()), x, y);
             y -= 16;
-            smallFont.draw(batch, String.format("\u03b3=%.0f  B\u03c1=%.1f T\u00b7m",
+            smallFont.draw(batch, String.format("gamma=%.0f  Brho=%.1f T*m",
                     sim.getBeam1().lorentzGamma(),
                     sim.getBeam1().magneticRigidity()), x, y);
         }
@@ -497,9 +501,9 @@ public class ControlRoomScreen extends ScreenAdapter {
         y -= 26;
 
         bodyFont.setColor(Color.WHITE);
-        bodyFont.draw(batch, "Inst. L: " + formatScientific(sim.getInstLuminosity(), "cm\u207b\u00b2s\u207b\u00b9"), x, y);
+        bodyFont.draw(batch, "Inst. L: " + formatScientific(sim.getInstLuminosity(), "cm^-2s^-1"), x, y);
         y -= 22;
-        bodyFont.draw(batch, String.format("Int. L: %.4f fb\u207b\u00b9", sim.getIntegratedLumiFb()), x, y);
+        bodyFont.draw(batch, String.format("Int. L: %.4f fb^-1", sim.getIntegratedLumiFb()), x, y);
         y -= 22;
         bodyFont.setColor(ACCENT_GREEN);
         bodyFont.draw(batch, String.format("Total events: %,d", sim.getTotalEvents()), x, y);
@@ -515,7 +519,7 @@ public class ControlRoomScreen extends ScreenAdapter {
             boolean done = claimed.stream().anyMatch(d -> d.toLowerCase().contains(
                     mission.replace("discover_", "").replace("_", " ")));
             smallFont.setColor(done ? ACCENT_GREEN : Color.WHITE);
-            String prefix = done ? "\u2713 " : "> ";
+            String prefix = done ? "v " : "> ";
             smallFont.draw(batch, prefix + mission.replace("_", " "), x, y);
             y -= 16;
         }
@@ -647,7 +651,7 @@ public class ControlRoomScreen extends ScreenAdapter {
         if (val == 0) return "0 " + unit;
         int exp = (int) Math.floor(Math.log10(Math.abs(val)));
         double mantissa = val / Math.pow(10, exp);
-        return String.format("%.2f\u00d710^%d %s", mantissa, exp, unit);
+        return String.format("%.2fx10^%d %s", mantissa, exp, unit);
     }
 
     @Override

@@ -70,11 +70,29 @@ public final class RandomService {
     }
 
     /**
+     * Threshold above which we switch from the exact Poisson sampler
+     * (Apache Commons Math) to a fast Gaussian approximation.
+     * For large means the CLT gives Poisson(λ) ≈ N(λ, λ), and the
+     * exact sampler becomes very slow (~4 ms per call for λ > 100 000).
+     */
+    private static final double POISSON_NORMAL_THRESHOLD = 1000.0;
+
+    /**
      * Draw from a Poisson distribution with the given mean.
+     * <p>
+     * For large means (λ > {@value #POISSON_NORMAL_THRESHOLD}) a Gaussian
+     * approximation {@code round(λ + √λ · z)} is used instead of the
+     * exact rejection sampler, which is prohibitively slow for the event
+     * rates typical at the LHC (W production alone: ~200 000 pb × L).
      */
     public int nextPoisson(String stream, double mean) {
         if (mean <= 0.0) {
             return 0;
+        }
+        if (mean >= POISSON_NORMAL_THRESHOLD) {
+            // Gaussian approximation: Poisson(λ) ≈ N(λ, λ)
+            double sample = mean + Math.sqrt(mean) * getStream(stream).nextGaussian();
+            return Math.max(0, (int) Math.round(sample));
         }
         PoissonDistribution poisson = new PoissonDistribution(
                 getStream(stream), mean,

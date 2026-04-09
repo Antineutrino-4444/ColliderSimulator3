@@ -276,7 +276,7 @@ public class EventDisplayRenderer {
                 cx - layout.width * 0.5f, cy + r + layout.height + 4f);
 
         font.setColor(COL_LAYER);
-        String[] labels = {"\u03c6=0", "\u03c6=\u03c0", "\u03c6=\u03c0/2", "\u03c6=-\u03c0/2"};
+        String[] labels = {"phi=0", "phi=pi", "phi=pi/2", "phi=-pi/2"};
         float[][] off = {{r * 1.05f, 0}, {-r * 1.05f, 0}, {0, r * 1.05f}, {0, -r * 1.05f}};
         for (int i = 0; i < 4; i++) {
             layout.setText(font, labels[i]);
@@ -338,9 +338,9 @@ public class EventDisplayRenderer {
             }
         }
         StringBuilder sb = new StringBuilder();
-        if (mu > 0)  sb.append(mu).append("\u03bc ");
+        if (mu > 0)  sb.append(mu).append("mu ");
         if (el > 0)  sb.append(el).append("e ");
-        if (ph > 0)  sb.append(ph).append("\u03b3 ");
+        if (ph > 0)  sb.append(ph).append("y ");
         if (jet > 0) sb.append(jet).append("jet ");
         if (hasMet)  sb.append("MET");
         return sb.toString().trim();

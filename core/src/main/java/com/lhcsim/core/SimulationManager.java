@@ -43,6 +43,13 @@ public class SimulationManager {
     private static final double BETA_STAR_Y = 0.30;
     private static final double INEL_XSEC_CM2 = 80e-27;
 
+    /**
+     * Maximum wall-clock seconds consumed in a single update call.
+     * If the frame delta exceeds this, the excess is discarded rather than
+     * simulated, preventing a spiral of ever-longer frames.
+     */
+    private static final float MAX_FRAME_DELTA = 0.05f;
+
     // ── Dependencies ──────────────────────────────────────────────
     private final EventBus eventBus;
     private final RandomService random;
@@ -153,11 +160,18 @@ public class SimulationManager {
      * @param realDelta wall-clock seconds since last frame
      */
     public void update(float realDelta) {
+        // Cap frame delta to prevent runaway simulation when a frame takes too long
+        float cappedDelta = Math.min(realDelta, MAX_FRAME_DELTA);
+
         // Advance game time
-        timeManager.update(realDelta);
+        timeManager.update(cappedDelta);
 
         // Update alerts
-        alertSystem.update(realDelta);
+        alertSystem.update(cappedDelta);
+
+        // Clear previous batch so stale events are never re-consumed
+        lastBatchEvents = List.of();
+        lastBatchReco = List.of();
 
         if (!beamOn || beamTimeManager.isExhausted()) {
             instLuminosity = 0;
@@ -172,7 +186,7 @@ public class SimulationManager {
             case REALTIME -> 1.0;
             case PAUSED   -> 0.0;
         };
-        double deltaHours = realDelta * speedMultiplier;
+        double deltaHours = cappedDelta * speedMultiplier;
 
         // Consume beam time
         beamTimeManager.consumeTime(deltaHours);

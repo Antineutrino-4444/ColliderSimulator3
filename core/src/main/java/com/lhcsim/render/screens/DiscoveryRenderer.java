@@ -48,11 +48,11 @@ public class DiscoveryRenderer {
     private static final int NUM_HISTOGRAMS = 3;
 
     private final HistogramDef[] histograms = {
-        new HistogramDef("m_\u03b3\u03b3", "H\u2192\u03b3\u03b3",
+        new HistogramDef("m_yy", "H->yy",
                          80, 180, 50, 125, 1.7, "Higgs_diphoton"),
-        new HistogramDef("m_4\u2113", "H\u2192ZZ\u21924\u2113",
+        new HistogramDef("m_4l", "H->ZZ->4l",
                          70, 200, 65, 125, 2.0, "Higgs_ZZ_4l"),
-        new HistogramDef("m_\u03bc\u03bc", "Z\u2192\u03bc\u03bc",
+        new HistogramDef("m_mumu", "Z->mumu",
                          60, 120, 60, 91.2, 2.5, "Drell-Yan_mumu"),
     };
 
@@ -381,7 +381,7 @@ public class DiscoveryRenderer {
                        plotY + plotH - 2f);
 
         // significance label
-        String sigText = String.format("\u03c3 = %.1f", hd.significance);
+        String sigText = String.format("sig = %.1f", hd.significance);
         Color sigCol;
         if (hd.significance >= DISCOVERY_SIGMA) {
             sigCol = COL_GREEN;
@@ -398,7 +398,7 @@ public class DiscoveryRenderer {
         if (!hd.claimed && hd.significance >= DISCOVERY_SIGMA) {
             float pulse = 0.5f + 0.5f * MathUtils.sin(animTime * 5f);
             font.setColor(new Color(COL_GREEN.r, COL_GREEN.g, COL_GREEN.b, pulse));
-            String disc = "5\u03c3 DISCOVERY!";
+            String disc = "5sig DISCOVERY!";
             layout.setText(font, disc);
             font.draw(batch, disc,
                       plotX + plotW * 0.5f - layout.width * 0.5f,
@@ -442,7 +442,7 @@ public class DiscoveryRenderer {
         font.draw(batch, title, x + 10f, y + h - 4f);
 
         font.setColor(COL_AXIS);
-        String lumi = String.format("\u222b L = %.1f fb\u207b\u00b9  %s",
+        String lumi = String.format("Int.L = %.1f fb^-1  %s",
                                     integratedLumiFb, eraName);
         layout.setText(font, lumi);
         font.draw(batch, lumi, x + w - layout.width - 10f, y + h - 4f);
