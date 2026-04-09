@@ -285,6 +285,7 @@ public class SimulationManager {
     public List<SubsystemStatus> getSubsystems() { return subsystems; }
     public Map<String, Long> getEventsByProcess() { return eventsByProcess; }
     public List<PhysicsEvent> getLastBatchEvents() { return lastBatchEvents; }
+    public List<List<ReconstructedObject>> getLastBatchReco() { return lastBatchReco; }
     public Bunch getBeam1()                   { return beam1; }
     public Bunch getBeam2()                   { return beam2; }
     public FastDetectorSim getDetectorSim()   { return detectorSim; }

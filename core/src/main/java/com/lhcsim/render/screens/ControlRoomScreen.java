@@ -17,36 +17,61 @@ import com.lhcsim.game.controlroom.AlertSystem;
 import com.lhcsim.game.controlroom.SubsystemStatus;
 import com.lhcsim.game.economy.BeamTimeManager;
 import com.lhcsim.physics.collision.EventGenerator.PhysicsEvent;
+import com.lhcsim.physics.particles.ReconstructedObject;
 import com.lhcsim.render.LHCSimGame;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 /**
  * Main gameplay screen: the LHC Control Room.
  * <p>
- * Displays beam status, subsystem health, luminosity/event counters,
- * alerts, event log, and time/beam controls. The player manages the
- * accelerator through campaign eras, collecting data and responding
- * to alerts.
+ * Four tabbed views accessed via F1–F4:
+ * <ol>
+ *   <li><b>Control Room</b> — subsystems, alerts, beam status, luminosity</li>
+ *   <li><b>Ring View</b> — top-down LHC schematic with animated beams</li>
+ *   <li><b>Event Display</b> — CMS-style detector cross-section with tracks</li>
+ *   <li><b>Discovery</b> — invariant-mass histograms and discovery claims</li>
+ * </ol>
+ * A persistent status bar at top shows era/beam/lumi info; a control bar
+ * at the bottom shows keyboard shortcuts.
  */
 public class ControlRoomScreen extends ScreenAdapter {
 
-    private static final Color BG_COLOR = new Color(0x08 / 255f, 0x0C / 255f, 0x1A / 255f, 1f);
-    private static final Color PANEL_BG = new Color(0x10 / 255f, 0x18 / 255f, 0x30 / 255f, 1f);
-    private static final Color PANEL_BORDER = new Color(0x20 / 255f, 0x40 / 255f, 0x70 / 255f, 1f);
-    private static final Color ACCENT_BLUE = new Color(0.3f, 0.6f, 1.0f, 1f);
-    private static final Color ACCENT_GREEN = new Color(0.2f, 0.9f, 0.3f, 1f);
+    // ── Design-doc palette ──────────────────────────────────────────
+    private static final Color BG_COLOR      = new Color(0x0A / 255f, 0x0E / 255f, 0x1F / 255f, 1f);
+    private static final Color PANEL_BG      = new Color(0x10 / 255f, 0x18 / 255f, 0x30 / 255f, 1f);
+    private static final Color PANEL_BORDER  = new Color(0x20 / 255f, 0x40 / 255f, 0x70 / 255f, 1f);
+    private static final Color ACCENT_CYAN   = new Color(0x00 / 255f, 0xD4 / 255f, 0xFF / 255f, 1f);
+    private static final Color ACCENT_GREEN  = new Color(0x30 / 255f, 0xD1 / 255f, 0x58 / 255f, 1f);
     private static final Color ACCENT_YELLOW = new Color(1.0f, 0.85f, 0.2f, 1f);
-    private static final Color ACCENT_RED = new Color(1.0f, 0.25f, 0.25f, 1f);
-    private static final Color DIM_TEXT = new Color(0.5f, 0.55f, 0.65f, 1f);
+    private static final Color ACCENT_RED    = new Color(0xFF / 255f, 0x3B / 255f, 0x30 / 255f, 1f);
+    private static final Color ACCENT_ORANGE = new Color(0xFF / 255f, 0x6B / 255f, 0x35 / 255f, 1f);
+    private static final Color DIM_TEXT      = new Color(0.5f, 0.55f, 0.65f, 1f);
+    private static final Color TAB_ACTIVE    = ACCENT_CYAN;
+    private static final Color TAB_INACTIVE  = new Color(0.25f, 0.30f, 0.40f, 1f);
 
+    private static final float TOP_BAR_H  = 52;
+    private static final float BOT_BAR_H  = 48;
+    private static final float TAB_BAR_H  = 28;
+    private static final float MARGIN      = 10;
+
+    // ── Tabs ────────────────────────────────────────────────────────
+    private enum Tab { CONTROL_ROOM, RING_VIEW, EVENT_DISPLAY, DISCOVERY }
+    private static final String[] TAB_LABELS = {
+            "F1 Control Room", "F2 Ring View", "F3 Event Display", "F4 Discovery"
+    };
+    private Tab activeTab = Tab.CONTROL_ROOM;
+
+    // ── Dependencies ────────────────────────────────────────────────
     private final LHCSimGame game;
     private final SimulationManager sim;
     private final TimeManager timeManager;
     private final BeamTimeManager beamTimeManager;
     private final AlertSystem alertSystem;
 
+    // ── Rendering resources ─────────────────────────────────────────
     private SpriteBatch batch;
     private ShapeRenderer shapes;
     private BitmapFont headerFont;
@@ -54,10 +79,19 @@ public class ControlRoomScreen extends ScreenAdapter {
     private BitmapFont smallFont;
     private GlyphLayout layout;
 
-    // Event log ring buffer
-    private static final int EVENT_LOG_SIZE = 12;
+    // ── Sub-renderers ───────────────────────────────────────────────
+    private RingViewRenderer ringView;
+    private EventDisplayRenderer eventDisplay;
+    private DiscoveryRenderer discovery;
+
+    // ── Event log ring buffer ───────────────────────────────────────
+    private static final int EVENT_LOG_SIZE = 14;
     private final String[] eventLog = new String[EVENT_LOG_SIZE];
     private int eventLogHead = 0;
+
+    // ── Cached reco objects for event display ───────────────────────
+    private List<ReconstructedObject> lastRecoObjects = new ArrayList<>();
+    private float animTime;
 
     public ControlRoomScreen(LHCSimGame game, SimulationManager sim) {
         this.game = game;
@@ -67,6 +101,8 @@ public class ControlRoomScreen extends ScreenAdapter {
         this.alertSystem = game.getAlertSystem();
     }
 
+    // ── Lifecycle ───────────────────────────────────────────────────
+
     @Override
     public void show() {
         batch = new SpriteBatch();
@@ -75,15 +111,19 @@ public class ControlRoomScreen extends ScreenAdapter {
 
         headerFont = new BitmapFont();
         headerFont.setColor(Color.WHITE);
-        headerFont.getData().setScale(2.0f);
+        headerFont.getData().setScale(1.8f);
 
         bodyFont = new BitmapFont();
         bodyFont.setColor(Color.WHITE);
-        bodyFont.getData().setScale(1.3f);
+        bodyFont.getData().setScale(1.2f);
 
         smallFont = new BitmapFont();
         smallFont.setColor(DIM_TEXT);
         smallFont.getData().setScale(1.0f);
+
+        ringView = new RingViewRenderer();
+        eventDisplay = new EventDisplayRenderer();
+        discovery = new DiscoveryRenderer();
 
         Gdx.input.setInputProcessor(new InputAdapter() {
             @Override
@@ -100,31 +140,27 @@ public class ControlRoomScreen extends ScreenAdapter {
         sim.start();
     }
 
+    // ── Input ───────────────────────────────────────────────────────
+
     private boolean handleKeyDown(int keycode) {
         switch (keycode) {
+            // Tab switching
+            case Input.Keys.F1 -> activeTab = Tab.CONTROL_ROOM;
+            case Input.Keys.F2 -> activeTab = Tab.RING_VIEW;
+            case Input.Keys.F3 -> activeTab = Tab.EVENT_DISPLAY;
+            case Input.Keys.F4 -> activeTab = Tab.DISCOVERY;
+
+            // Game controls (always active)
             case Input.Keys.SPACE -> sim.toggleBeam();
             case Input.Keys.NUM_1 -> timeManager.setMode(TimeManager.TimeMode.PAUSED);
             case Input.Keys.NUM_2 -> timeManager.setMode(TimeManager.TimeMode.NORMAL);
             case Input.Keys.NUM_3 -> timeManager.setMode(TimeManager.TimeMode.FAST);
             case Input.Keys.N -> sim.advanceEra();
-            case Input.Keys.R -> {
-                // Repair most damaged subsystem
-                List<SubsystemStatus> subs = sim.getSubsystems();
-                int worstIdx = 0;
-                double worstHealth = 999;
-                for (int i = 0; i < subs.size(); i++) {
-                    if (subs.get(i).getHealthPercent() < worstHealth) {
-                        worstHealth = subs.get(i).getHealthPercent();
-                        worstIdx = i;
-                    }
-                }
-                sim.repairSubsystem(worstIdx);
-            }
-            case Input.Keys.A -> {
-                // Acknowledge oldest alert
-                List<AlertSystem.Alert> alerts = alertSystem.getActiveAlerts();
-                if (!alerts.isEmpty()) {
-                    alertSystem.acknowledgeAlert(alerts.get(0).id());
+            case Input.Keys.R -> repairWorstSubsystem();
+            case Input.Keys.A -> acknowledgeOldestAlert();
+            case Input.Keys.D -> {
+                if (activeTab == Tab.DISCOVERY && discovery.hasClaimableDiscovery()) {
+                    discovery.claimDiscovery();
                 }
             }
             default -> { return false; }
@@ -132,18 +168,49 @@ public class ControlRoomScreen extends ScreenAdapter {
         return true;
     }
 
+    private void repairWorstSubsystem() {
+        List<SubsystemStatus> subs = sim.getSubsystems();
+        int worstIdx = 0;
+        double worstHealth = 999;
+        for (int i = 0; i < subs.size(); i++) {
+            if (subs.get(i).getHealthPercent() < worstHealth) {
+                worstHealth = subs.get(i).getHealthPercent();
+                worstIdx = i;
+            }
+        }
+        sim.repairSubsystem(worstIdx);
+    }
+
+    private void acknowledgeOldestAlert() {
+        List<AlertSystem.Alert> alerts = alertSystem.getActiveAlerts();
+        if (!alerts.isEmpty()) {
+            alertSystem.acknowledgeAlert(alerts.get(0).id());
+        }
+    }
+
     private boolean handleClick(int x, int y) {
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
 
-        // Beam toggle button area (bottom-left)
-        if (x < w * 0.2f && y < 60) {
+        // Tab bar click detection
+        float tabY = h - TOP_BAR_H - TAB_BAR_H;
+        if (y >= tabY && y <= tabY + TAB_BAR_H) {
+            float tabW = w / Tab.values().length;
+            int tabIdx = (int) (x / tabW);
+            if (tabIdx >= 0 && tabIdx < Tab.values().length) {
+                activeTab = Tab.values()[tabIdx];
+                return true;
+            }
+        }
+
+        // Beam toggle (bottom-left)
+        if (x < w * 0.15f && y < BOT_BAR_H) {
             sim.toggleBeam();
             return true;
         }
-        // Time control buttons (bottom-center)
-        if (x > w * 0.3f && x < w * 0.7f && y < 60) {
-            float section = (x - w * 0.3f) / (w * 0.4f);
+        // Time controls (bottom-center)
+        if (x > w * 0.3f && x < w * 0.65f && y < BOT_BAR_H) {
+            float section = (x - w * 0.3f) / (w * 0.35f);
             if (section < 0.33f) {
                 timeManager.setMode(TimeManager.TimeMode.PAUSED);
             } else if (section < 0.66f) {
@@ -153,366 +220,420 @@ public class ControlRoomScreen extends ScreenAdapter {
             }
             return true;
         }
+        // Discovery claim (bottom-right on Discovery tab)
+        if (activeTab == Tab.DISCOVERY && x > w * 0.75f && y < BOT_BAR_H) {
+            if (discovery.hasClaimableDiscovery()) {
+                discovery.claimDiscovery();
+            }
+            return true;
+        }
         return false;
     }
 
+    // ── Render ───────────────────────────────────────────────────────
+
     @Override
     public void render(float delta) {
+        animTime += delta;
+
         // Update simulation
         if (timeManager.getMode() != TimeManager.TimeMode.PAUSED) {
             sim.update(delta);
         }
 
-        // Log new events
-        for (PhysicsEvent ev : sim.getLastBatchEvents()) {
-            eventLog[eventLogHead] = String.format("Event #%d  %s  sqrt(s)=%.0f GeV",
-                    ev.eventNumber(), ev.processName(), ev.sqrtS());
-            eventLogHead = (eventLogHead + 1) % EVENT_LOG_SIZE;
+        // Feed new events to discovery histograms & event display
+        List<PhysicsEvent> lastEvents = sim.getLastBatchEvents();
+        if (!lastEvents.isEmpty()) {
+            discovery.accumulateEvents(lastEvents);
+            for (PhysicsEvent ev : lastEvents) {
+                eventLog[eventLogHead] = String.format("#%d %s  \u221as=%.1f TeV",
+                        ev.eventNumber(), ev.processName(), ev.sqrtS());
+                eventLogHead = (eventLogHead + 1) % EVENT_LOG_SIZE;
+            }
+        }
+        // Cache latest reco objects for event display
+        var lastBatchReco = sim.getLastBatchReco();
+        if (lastBatchReco != null && !lastBatchReco.isEmpty()) {
+            lastRecoObjects = lastBatchReco.get(lastBatchReco.size() - 1);
         }
 
-        // Clear
+        // Clear screen
         Gdx.gl.glClearColor(BG_COLOR.r, BG_COLOR.g, BG_COLOR.b, BG_COLOR.a);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        Gdx.gl.glEnable(GL20.GL_BLEND);
 
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
-        float margin = 12;
 
-        // Draw panels with ShapeRenderer
-        Gdx.gl.glEnable(GL20.GL_BLEND);
+        // Content area
+        float contentY = BOT_BAR_H + MARGIN;
+        float contentH = h - TOP_BAR_H - TAB_BAR_H - BOT_BAR_H - MARGIN * 2;
+
+        // ── Draw top bar + tab bar + bottom bar (always visible) ────
         shapes.begin(ShapeRenderer.ShapeType.Filled);
-        drawPanels(w, h, margin);
+        drawChrome(w, h);
         shapes.end();
 
         shapes.begin(ShapeRenderer.ShapeType.Line);
-        drawPanelBorders(w, h, margin);
+        drawChromeBorders(w, h);
         shapes.end();
 
-        // Draw text
         batch.begin();
-        drawHeader(w, h, margin);
-        drawBeamStatus(w, h, margin);
-        drawSubsystems(w, h, margin);
-        drawLuminosity(w, h, margin);
-        drawEventLog(w, h, margin);
-        drawAlerts(w, h, margin);
-        drawProcessCounts(w, h, margin);
-        drawControls(w, h, margin);
+        drawTopBar(w, h);
+        drawTabBar(w, h);
+        drawBottomBar(w, h);
+        batch.end();
+
+        // ── Draw active tab content ────────────────────────────────
+        switch (activeTab) {
+            case CONTROL_ROOM -> renderControlRoom(w, contentY, contentH, delta);
+            case RING_VIEW    -> renderRingView(w, contentY, contentH, delta);
+            case EVENT_DISPLAY-> renderEventDisplay(w, contentY, contentH, delta);
+            case DISCOVERY    -> renderDiscovery(w, contentY, contentH, delta);
+        }
+    }
+
+    // ── Chrome (top bar, tab bar, bottom bar) ───────────────────────
+
+    private void drawChrome(float w, float h) {
+        // Top bar background
+        shapes.setColor(PANEL_BG);
+        shapes.rect(0, h - TOP_BAR_H, w, TOP_BAR_H);
+
+        // Tab bar background
+        float tabY = h - TOP_BAR_H - TAB_BAR_H;
+        shapes.setColor(new Color(0x08 / 255f, 0x0C / 255f, 0x1A / 255f, 1f));
+        shapes.rect(0, tabY, w, TAB_BAR_H);
+
+        // Active tab highlight
+        float tabW = w / Tab.values().length;
+        int idx = activeTab.ordinal();
+        shapes.setColor(new Color(ACCENT_CYAN.r, ACCENT_CYAN.g, ACCENT_CYAN.b, 0.15f));
+        shapes.rect(idx * tabW, tabY, tabW, TAB_BAR_H);
+
+        // Bottom bar background
+        shapes.setColor(PANEL_BG);
+        shapes.rect(0, 0, w, BOT_BAR_H);
+    }
+
+    private void drawChromeBorders(float w, float h) {
+        shapes.setColor(PANEL_BORDER);
+        shapes.line(0, h - TOP_BAR_H, w, h - TOP_BAR_H);
+        float tabY = h - TOP_BAR_H - TAB_BAR_H;
+        shapes.line(0, tabY, w, tabY);
+        shapes.line(0, BOT_BAR_H, w, BOT_BAR_H);
+        // Active tab underline
+        float tabW = w / Tab.values().length;
+        int idx = activeTab.ordinal();
+        shapes.setColor(ACCENT_CYAN);
+        shapes.rectLine(idx * tabW, tabY, (idx + 1) * tabW, tabY, 2f);
+    }
+
+    private void drawTopBar(float w, float h) {
+        Era era = sim.getCurrentEra();
+        float y = h - 10;
+
+        // Title
+        headerFont.setColor(ACCENT_CYAN);
+        headerFont.draw(batch, "LHC SIMULATOR", MARGIN + 6, y);
+
+        // Era info
+        bodyFont.setColor(Color.WHITE);
+        String eraText = String.format("Era %d: %s | %s | \u221as = %.1f TeV",
+                era.number(), era.name(), era.activeMachine(), era.sqrtS());
+        layout.setText(bodyFont, eraText);
+        bodyFont.draw(batch, eraText, w * 0.35f, y - 4);
+
+        // Beam status indicator
+        Color beamColor = sim.isBeamOn() ? ACCENT_GREEN : ACCENT_RED;
+        bodyFont.setColor(beamColor);
+        String beamText = sim.isBeamOn() ? "\u25CF BEAM ON" : "\u25CB BEAM OFF";
+        layout.setText(bodyFont, beamText);
+        bodyFont.draw(batch, beamText, w - layout.width - MARGIN - 6, y - 4);
+
+        // Second line: luminosity + time
+        smallFont.setColor(DIM_TEXT);
+        String line2 = String.format("L=%.2e cm\u207b\u00b2s\u207b\u00b9  \u222bL=%.3f fb\u207b\u00b9  Events=%,d  Year %d Day %d [%s]",
+                sim.getInstLuminosity(), sim.getIntegratedLumiFb(),
+                sim.getTotalEvents(), timeManager.getYear(), timeManager.getDay(),
+                timeManager.getMode().name());
+        smallFont.draw(batch, line2, MARGIN + 6, y - 26);
+    }
+
+    private void drawTabBar(float w, float h) {
+        float tabY = h - TOP_BAR_H - TAB_BAR_H;
+        float tabW = w / Tab.values().length;
+        for (int i = 0; i < Tab.values().length; i++) {
+            boolean active = Tab.values()[i] == activeTab;
+            bodyFont.setColor(active ? TAB_ACTIVE : TAB_INACTIVE);
+            layout.setText(bodyFont, TAB_LABELS[i]);
+            float tx = i * tabW + tabW * 0.5f - layout.width * 0.5f;
+            bodyFont.draw(batch, TAB_LABELS[i], tx, tabY + TAB_BAR_H - 6);
+        }
+    }
+
+    private void drawBottomBar(float w, float h) {
+        float y = BOT_BAR_H - 12;
+
+        // Beam toggle
+        Color beamBtnC = sim.isBeamOn() ? ACCENT_GREEN : ACCENT_RED;
+        bodyFont.setColor(beamBtnC);
+        bodyFont.draw(batch, sim.isBeamOn() ? "[SPACE] Stop" : "[SPACE] Start", MARGIN, y);
+
+        // Time controls
+        float cx = w * 0.2f;
+        TimeManager.TimeMode mode = timeManager.getMode();
+        bodyFont.setColor(mode == TimeManager.TimeMode.PAUSED ? ACCENT_YELLOW : DIM_TEXT);
+        bodyFont.draw(batch, "[1]\u23F8", cx, y);
+        cx += 55;
+        bodyFont.setColor(mode == TimeManager.TimeMode.NORMAL ? ACCENT_GREEN : DIM_TEXT);
+        bodyFont.draw(batch, "[2]\u25B6", cx, y);
+        cx += 55;
+        bodyFont.setColor(mode == TimeManager.TimeMode.FAST ? ACCENT_CYAN : DIM_TEXT);
+        bodyFont.draw(batch, "[3]\u23E9", cx, y);
+
+        // Additional controls
+        cx += 80;
+        smallFont.setColor(DIM_TEXT);
+        smallFont.draw(batch, "[R]Repair  [A]Alert  [N]NextEra", cx, y + 2);
+
+        // Beam time remaining
+        double remaining = beamTimeManager.getRemaining();
+        double total = beamTimeManager.getTotalBudget();
+        double pct = total > 0 ? remaining / total * 100 : 0;
+        Color btColor = pct > 30 ? ACCENT_GREEN : (pct > 10 ? ACCENT_YELLOW : ACCENT_RED);
+        bodyFont.setColor(btColor);
+        String btText = String.format("Beam time: %.0fh/%.0fh", remaining, total);
+        layout.setText(bodyFont, btText);
+        bodyFont.draw(batch, btText, w - layout.width - MARGIN, y);
+
+        // Discovery claim hint on discovery tab
+        if (activeTab == Tab.DISCOVERY && discovery.hasClaimableDiscovery()) {
+            bodyFont.setColor(ACCENT_GREEN);
+            bodyFont.draw(batch, "[D] Claim Discovery!", w * 0.6f, y);
+        }
+    }
+
+    // ── Tab: Control Room ───────────────────────────────────────────
+
+    private void renderControlRoom(float w, float contentY, float contentH, float delta) {
+        float leftW = w * 0.30f;
+        float centerW = w * 0.38f;
+        float rightW = w - leftW - centerW;
+
+        // Panel backgrounds
+        shapes.begin(ShapeRenderer.ShapeType.Filled);
+        shapes.setColor(PANEL_BG);
+        shapes.rect(MARGIN, contentY, leftW - MARGIN * 2, contentH);
+        shapes.rect(leftW, contentY, centerW - MARGIN, contentH);
+        shapes.rect(leftW + centerW, contentY, rightW - MARGIN, contentH);
+        shapes.end();
+
+        shapes.begin(ShapeRenderer.ShapeType.Line);
+        shapes.setColor(PANEL_BORDER);
+        shapes.rect(MARGIN, contentY, leftW - MARGIN * 2, contentH);
+        shapes.rect(leftW, contentY, centerW - MARGIN, contentH);
+        shapes.rect(leftW + centerW, contentY, rightW - MARGIN, contentH);
+        shapes.end();
+
+        batch.begin();
+        drawBeamStatus(MARGIN + 8, contentY + contentH - 8);
+        drawSubsystems(MARGIN + 8, contentY + contentH * 0.45f);
+        drawLuminosityAndMissions(leftW + 8, contentY + contentH - 8);
+        drawEventLog(leftW + 8, contentY + contentH * 0.40f);
+        drawAlerts(leftW + centerW + 8, contentY + contentH - 8);
+        drawProcessCounts(leftW + centerW + 8, contentY + contentH * 0.50f);
         batch.end();
     }
 
-    // ── Panel layout ────────────────────────────────────────────────
-    // Layout: Top bar | Left col (beam + subsys) | Center (lumi + events) | Right (alerts + processes)
-    // Bottom: controls bar
-
-    private void drawPanels(float w, float h, float m) {
-        float topH = 50;
-        float botH = 55;
-        float midH = h - topH - botH - m * 3;
-
-        // Top bar
-        shapes.setColor(PANEL_BG);
-        shapes.rect(m, h - topH - m, w - 2 * m, topH);
-
-        // Left column
-        float leftW = w * 0.25f;
-        shapes.rect(m, botH + m, leftW - m, midH);
-
-        // Center column
-        float centerX = leftW + m;
-        float centerW = w * 0.42f;
-        shapes.rect(centerX, botH + m, centerW - m, midH);
-
-        // Right column
-        float rightX = centerX + centerW;
-        float rightW = w - rightX - m;
-        shapes.rect(rightX, botH + m, rightW, midH);
-
-        // Bottom bar
-        shapes.rect(m, m, w - 2 * m, botH - m);
-    }
-
-    private void drawPanelBorders(float w, float h, float m) {
-        float topH = 50;
-        float botH = 55;
-        float midH = h - topH - botH - m * 3;
-
-        shapes.setColor(PANEL_BORDER);
-        shapes.rect(m, h - topH - m, w - 2 * m, topH);
-        float leftW = w * 0.25f;
-        shapes.rect(m, botH + m, leftW - m, midH);
-        float centerX = leftW + m;
-        float centerW = w * 0.42f;
-        shapes.rect(centerX, botH + m, centerW - m, midH);
-        float rightX = centerX + centerW;
-        float rightW = w - rightX - m;
-        shapes.rect(rightX, botH + m, rightW, midH);
-        shapes.rect(m, m, w - 2 * m, botH - m);
-    }
-
-    // ── Drawing helpers ─────────────────────────────────────────────
-
-    private void drawHeader(float w, float h, float m) {
-        Era era = sim.getCurrentEra();
-        float y = h - m - 8;
-
-        headerFont.setColor(ACCENT_BLUE);
-        headerFont.draw(batch, "LHC CONTROL ROOM", m + 10, y);
-
-        bodyFont.setColor(Color.WHITE);
-        String eraText = String.format("Era %d: %s  |  %s  |  sqrt(s) = %.1f TeV",
-                era.number(), era.name(), era.activeMachine(), era.sqrtS());
-        layout.setText(bodyFont, eraText);
-        bodyFont.draw(batch, eraText, w - layout.width - m - 10, y - 5);
-
-        // Year/Day
-        smallFont.setColor(DIM_TEXT);
-        String timeText = String.format("Year %d  Day %d  [%s]",
-                timeManager.getYear(), timeManager.getDay(),
-                timeManager.getMode().name());
-        layout.setText(smallFont, timeText);
-        smallFont.draw(batch, timeText, w / 2 - layout.width / 2, y - 8);
-    }
-
-    private void drawBeamStatus(float w, float h, float m) {
-        float leftW = w * 0.25f;
-        float topH = 50;
-        float botH = 55;
-        float panelTop = h - topH - m * 2;
-        float x = m + 10;
-        float y = panelTop - 5;
-
-        // Section title
-        bodyFont.setColor(ACCENT_BLUE);
+    private void drawBeamStatus(float x, float y) {
+        bodyFont.setColor(ACCENT_CYAN);
         bodyFont.draw(batch, "BEAM STATUS", x, y);
-        y -= 30;
+        y -= 26;
 
-        // Beam on/off indicator
-        Color beamColor = sim.isBeamOn() ? ACCENT_GREEN : ACCENT_RED;
-        bodyFont.setColor(beamColor);
+        Color bc = sim.isBeamOn() ? ACCENT_GREEN : ACCENT_RED;
+        bodyFont.setColor(bc);
         bodyFont.draw(batch, sim.isBeamOn() ? ">> BEAM ON <<" : "-- BEAM OFF --", x, y);
-        y -= 28;
+        y -= 24;
 
         if (sim.getBeam1() != null) {
             smallFont.setColor(Color.WHITE);
             smallFont.draw(batch, String.format("Energy: %.0f GeV/beam",
                     sim.getBeam1().getEnergy()), x, y);
-            y -= 18;
-            smallFont.draw(batch, String.format("Bunches: %d",
-                    SimulationManager.NUM_BUNCHES), x, y);
-            y -= 18;
-            smallFont.draw(batch, String.format("N/bunch: %.2e",
+            y -= 16;
+            smallFont.draw(batch, String.format("Bunches: %d  N/b: %.2e",
+                    SimulationManager.NUM_BUNCHES,
                     sim.getBeam1().getNumParticles()), x, y);
-            y -= 18;
-            smallFont.draw(batch, String.format("gamma: %.0f",
-                    sim.getBeam1().lorentzGamma()), x, y);
-            y -= 18;
-            smallFont.draw(batch, String.format("B-rho: %.1f T*m",
+            y -= 16;
+            smallFont.draw(batch, String.format("\u03b3=%.0f  B\u03c1=%.1f T\u00b7m",
+                    sim.getBeam1().lorentzGamma(),
                     sim.getBeam1().magneticRigidity()), x, y);
-            y -= 18;
         }
-
-        // Beam time
-        y -= 10;
-        bodyFont.setColor(ACCENT_YELLOW);
-        bodyFont.draw(batch, "BEAM TIME", x, y);
-        y -= 24;
-
-        double remaining = beamTimeManager.getRemaining();
-        double total = beamTimeManager.getTotalBudget();
-        double pct = total > 0 ? remaining / total * 100 : 0;
-        Color btColor = pct > 30 ? ACCENT_GREEN : (pct > 10 ? ACCENT_YELLOW : ACCENT_RED);
-        smallFont.setColor(btColor);
-        smallFont.draw(batch, String.format("%.0f / %.0f hrs (%.0f%%)",
-                remaining, total, pct), x, y);
     }
 
-    private void drawSubsystems(float w, float h, float m) {
-        float leftW = w * 0.25f;
-        float botH = 55;
-        float x = m + 10;
-        float y = botH + m + 220;
-
-        bodyFont.setColor(ACCENT_BLUE);
+    private void drawSubsystems(float x, float y) {
+        bodyFont.setColor(ACCENT_CYAN);
         bodyFont.draw(batch, "SUBSYSTEMS", x, y);
-        y -= 26;
+        y -= 22;
 
         for (SubsystemStatus ss : sim.getSubsystems()) {
-            Color stateColor = switch (ss.getState()) {
-                case NOMINAL -> ACCENT_GREEN;
-                case WARNING -> ACCENT_YELLOW;
+            Color c = switch (ss.getState()) {
+                case NOMINAL  -> ACCENT_GREEN;
+                case WARNING  -> ACCENT_YELLOW;
                 case CRITICAL -> ACCENT_RED;
-                case OFFLINE -> new Color(0.5f, 0.5f, 0.5f, 1f);
+                case OFFLINE  -> new Color(0.4f, 0.4f, 0.4f, 1f);
             };
-            smallFont.setColor(stateColor);
-
-            String line = String.format("%-12s %3.0f%% %s",
-                    abbreviate(ss.getName(), 12), ss.getHealthPercent(),
-                    ss.getState() == SubsystemStatus.State.NOMINAL ? "OK" : ss.getState().name());
-            smallFont.draw(batch, line, x, y);
-            y -= 17;
+            smallFont.setColor(c);
+            smallFont.draw(batch, String.format("%-14s %3.0f%% %s",
+                    abbreviate(ss.getName(), 14), ss.getHealthPercent(),
+                    ss.getState() == SubsystemStatus.State.NOMINAL ? "OK" : ss.getState().name()), x, y);
+            y -= 15;
         }
-
-        y -= 8;
-        smallFont.setColor(DIM_TEXT);
-        smallFont.draw(batch, "[R] Repair worst system", x, y);
     }
 
-    private void drawLuminosity(float w, float h, float m) {
-        float leftW = w * 0.25f;
-        float topH = 50;
-        float centerX = leftW + m + 10;
-        float panelTop = h - topH - m * 2;
-        float y = panelTop - 5;
-
-        bodyFont.setColor(ACCENT_BLUE);
-        bodyFont.draw(batch, "LUMINOSITY & DATA", centerX, y);
-        y -= 30;
+    private void drawLuminosityAndMissions(float x, float y) {
+        bodyFont.setColor(ACCENT_CYAN);
+        bodyFont.draw(batch, "LUMINOSITY & DATA", x, y);
+        y -= 26;
 
         bodyFont.setColor(Color.WHITE);
-        String instStr = formatScientific(sim.getInstLuminosity(), "cm^-2 s^-1");
-        bodyFont.draw(batch, "Inst. L: " + instStr, centerX, y);
-        y -= 28;
-
-        bodyFont.draw(batch, String.format("Int. L: %.4f fb^-1", sim.getIntegratedLumiFb()), centerX, y);
-        y -= 28;
-
+        bodyFont.draw(batch, "Inst. L: " + formatScientific(sim.getInstLuminosity(), "cm\u207b\u00b2s\u207b\u00b9"), x, y);
+        y -= 22;
+        bodyFont.draw(batch, String.format("Int. L: %.4f fb\u207b\u00b9", sim.getIntegratedLumiFb()), x, y);
+        y -= 22;
         bodyFont.setColor(ACCENT_GREEN);
-        bodyFont.draw(batch, String.format("Total events: %,d", sim.getTotalEvents()), centerX, y);
-        y -= 35;
+        bodyFont.draw(batch, String.format("Total events: %,d", sim.getTotalEvents()), x, y);
+        y -= 30;
 
-        // Missions
         bodyFont.setColor(ACCENT_YELLOW);
-        bodyFont.draw(batch, "MISSIONS", centerX, y);
-        y -= 24;
+        bodyFont.draw(batch, "MISSIONS", x, y);
+        y -= 22;
 
         Era era = sim.getCurrentEra();
+        List<String> claimed = discovery.getClaimedDiscoveries();
         for (String mission : era.missions()) {
-            smallFont.setColor(Color.WHITE);
-            String displayName = mission.replace("_", " ");
-            smallFont.draw(batch, "  > " + displayName, centerX, y);
-            y -= 18;
+            boolean done = claimed.stream().anyMatch(d -> d.toLowerCase().contains(
+                    mission.replace("discover_", "").replace("_", " ")));
+            smallFont.setColor(done ? ACCENT_GREEN : Color.WHITE);
+            String prefix = done ? "\u2713 " : "> ";
+            smallFont.draw(batch, prefix + mission.replace("_", " "), x, y);
+            y -= 16;
         }
-
-        y -= 10;
-        smallFont.setColor(DIM_TEXT);
-        smallFont.draw(batch, "[N] Advance to next era", centerX, y);
     }
 
-    private void drawEventLog(float w, float h, float m) {
-        float leftW = w * 0.25f;
-        float centerX = leftW + m + 10;
-        float botH = 55;
-        float y = botH + m + 210;
-
-        bodyFont.setColor(ACCENT_BLUE);
-        bodyFont.draw(batch, "EVENT LOG", centerX, y);
-        y -= 24;
+    private void drawEventLog(float x, float y) {
+        bodyFont.setColor(ACCENT_CYAN);
+        bodyFont.draw(batch, "EVENT LOG", x, y);
+        y -= 22;
 
         smallFont.setColor(new Color(0.7f, 0.8f, 0.9f, 1f));
-        // Show recent events from ring buffer (newest first)
         for (int i = 0; i < EVENT_LOG_SIZE; i++) {
             int idx = (eventLogHead - 1 - i + EVENT_LOG_SIZE) % EVENT_LOG_SIZE;
             if (eventLog[idx] != null) {
-                smallFont.draw(batch, eventLog[idx], centerX, y);
+                smallFont.draw(batch, eventLog[idx], x, y);
+                y -= 14;
+            }
+        }
+    }
+
+    private void drawAlerts(float x, float y) {
+        bodyFont.setColor(ACCENT_RED);
+        bodyFont.draw(batch, "ALERTS", x, y);
+        y -= 24;
+
+        List<AlertSystem.Alert> alerts = alertSystem.getActiveAlerts();
+        if (alerts.isEmpty()) {
+            smallFont.setColor(ACCENT_GREEN);
+            smallFont.draw(batch, "No active alerts", x, y);
+        } else {
+            for (AlertSystem.Alert alert : alerts) {
+                Color ac = switch (alert.severity()) {
+                    case INFO     -> ACCENT_CYAN;
+                    case WARNING  -> ACCENT_YELLOW;
+                    case CRITICAL -> ACCENT_RED;
+                };
+                smallFont.setColor(ac);
+                smallFont.draw(batch, String.format("[%c] %s (%.0fs)",
+                        alert.severity().name().charAt(0),
+                        abbreviate(alert.message(), 32),
+                        alert.timeRemainingSeconds()), x, y);
                 y -= 16;
             }
         }
     }
 
-    private void drawAlerts(float w, float h, float m) {
-        float leftW = w * 0.25f;
-        float centerW = w * 0.42f;
-        float rightX = leftW + centerW + m + 10;
-        float topH = 50;
-        float panelTop = h - topH - m * 2;
-        float y = panelTop - 5;
-
-        bodyFont.setColor(ACCENT_RED);
-        bodyFont.draw(batch, "ALERTS", rightX, y);
-        y -= 26;
-
-        List<AlertSystem.Alert> alerts = alertSystem.getActiveAlerts();
-        if (alerts.isEmpty()) {
-            smallFont.setColor(ACCENT_GREEN);
-            smallFont.draw(batch, "No active alerts", rightX, y);
-            y -= 18;
-        } else {
-            for (AlertSystem.Alert alert : alerts) {
-                Color aColor = switch (alert.severity()) {
-                    case INFO -> ACCENT_BLUE;
-                    case WARNING -> ACCENT_YELLOW;
-                    case CRITICAL -> ACCENT_RED;
-                };
-                smallFont.setColor(aColor);
-                String aLine = String.format("[%s] %s (%.0fs)",
-                        alert.severity().name().charAt(0),
-                        abbreviate(alert.message(), 35),
-                        alert.timeRemainingSeconds());
-                smallFont.draw(batch, aLine, rightX, y);
-                y -= 17;
-            }
-        }
-
-        y -= 8;
-        smallFont.setColor(DIM_TEXT);
-        smallFont.draw(batch, "[A] Acknowledge alert", rightX, y);
-    }
-
-    private void drawProcessCounts(float w, float h, float m) {
-        float leftW = w * 0.25f;
-        float centerW = w * 0.42f;
-        float rightX = leftW + centerW + m + 10;
-        float botH = 55;
-        float y = botH + m + 260;
-
-        bodyFont.setColor(ACCENT_BLUE);
-        bodyFont.draw(batch, "PROCESS COUNTS", rightX, y);
-        y -= 24;
+    private void drawProcessCounts(float x, float y) {
+        bodyFont.setColor(ACCENT_CYAN);
+        bodyFont.draw(batch, "PROCESS COUNTS", x, y);
+        y -= 22;
 
         Map<String, Long> counts = sim.getEventsByProcess();
         if (counts.isEmpty()) {
             smallFont.setColor(DIM_TEXT);
-            smallFont.draw(batch, "No events yet", rightX, y);
+            smallFont.draw(batch, "No events yet", x, y);
         } else {
-            for (Map.Entry<String, Long> entry : counts.entrySet()) {
+            for (var entry : counts.entrySet()) {
                 smallFont.setColor(Color.WHITE);
-                smallFont.draw(batch, String.format("%-20s %,8d",
-                        entry.getKey(), entry.getValue()), rightX, y);
-                y -= 17;
+                smallFont.draw(batch, String.format("%-18s %,8d",
+                        entry.getKey(), entry.getValue()), x, y);
+                y -= 15;
             }
         }
     }
 
-    private void drawControls(float w, float h, float m) {
-        float y = m + 35;
+    // ── Tab: Ring View ──────────────────────────────────────────────
 
-        // Beam toggle
-        Color beamBtnColor = sim.isBeamOn() ? ACCENT_GREEN : ACCENT_RED;
-        bodyFont.setColor(beamBtnColor);
-        bodyFont.draw(batch, sim.isBeamOn() ? "[SPACE] Stop Beam" : "[SPACE] Start Beam",
-                m + 10, y);
+    private void renderRingView(float w, float contentY, float contentH, float delta) {
+        Era era = sim.getCurrentEra();
+        double energy = sim.getBeam1() != null ? sim.getBeam1().getEnergy() : 0;
 
-        // Time controls
-        float centerX = w * 0.3f + 10;
-        TimeManager.TimeMode mode = timeManager.getMode();
+        // The ring renderer manages its own shape/batch begin/end calls
+        ringView.render(batch, shapes, bodyFont,
+                w, contentH, delta,
+                sim.isBeamOn(), energy, era.activeMachine());
+    }
 
-        bodyFont.setColor(mode == TimeManager.TimeMode.PAUSED ? ACCENT_YELLOW : DIM_TEXT);
-        bodyFont.draw(batch, "[1] Pause", centerX, y);
+    // ── Tab: Event Display ──────────────────────────────────────────
 
-        centerX += 130;
-        bodyFont.setColor(mode == TimeManager.TimeMode.NORMAL ? ACCENT_GREEN : DIM_TEXT);
-        bodyFont.draw(batch, "[2] Normal", centerX, y);
+    private void renderEventDisplay(float w, float contentY, float contentH, float delta) {
+        float radius = Math.min(w, contentH) * 0.42f;
+        float cx = w * 0.5f;
+        float cy = contentY + contentH * 0.5f;
 
-        centerX += 140;
-        bodyFont.setColor(mode == TimeManager.TimeMode.FAST ? ACCENT_BLUE : DIM_TEXT);
-        bodyFont.draw(batch, "[3] Fast", centerX, y);
+        eventDisplay.render(batch, shapes, bodyFont,
+                cx, cy, radius,
+                lastRecoObjects, animTime);
 
-        // Era info
-        float rightX = w - 280;
+        // Draw a small info overlay
+        batch.begin();
         smallFont.setColor(DIM_TEXT);
-        smallFont.draw(batch, String.format("Era %d/%d  |  [N] Next Era",
-                sim.getEraIndex() + 1, sim.getAllEras().size()), rightX, y - 5);
+        String info = lastRecoObjects.isEmpty()
+                ? "Waiting for events... (press SPACE to start beam)"
+                : String.format("%d reconstructed objects", lastRecoObjects.size());
+        layout.setText(smallFont, info);
+        smallFont.draw(batch, info, w * 0.5f - layout.width * 0.5f, contentY + 16);
+        batch.end();
+    }
+
+    // ── Tab: Discovery ──────────────────────────────────────────────
+
+    private void renderDiscovery(float w, float contentY, float contentH, float delta) {
+        Era era = sim.getCurrentEra();
+        discovery.render(batch, shapes, bodyFont, smallFont,
+                MARGIN, contentY, w - MARGIN * 2, contentH, animTime,
+                sim.getIntegratedLumiFb(), era.name());
+
+        // Show claimed discoveries
+        if (!discovery.getClaimedDiscoveries().isEmpty()) {
+            batch.begin();
+            bodyFont.setColor(ACCENT_GREEN);
+            StringBuilder sb = new StringBuilder("Discoveries: ");
+            for (String d : discovery.getClaimedDiscoveries()) {
+                sb.append(d).append("  ");
+            }
+            bodyFont.draw(batch, sb.toString(), MARGIN + 10, contentY + 18);
+            batch.end();
+        }
     }
 
     // ── Utility ─────────────────────────────────────────────────────
@@ -526,7 +647,7 @@ public class ControlRoomScreen extends ScreenAdapter {
         if (val == 0) return "0 " + unit;
         int exp = (int) Math.floor(Math.log10(Math.abs(val)));
         double mantissa = val / Math.pow(10, exp);
-        return String.format("%.2f x 10^%d %s", mantissa, exp, unit);
+        return String.format("%.2f\u00d710^%d %s", mantissa, exp, unit);
     }
 
     @Override
