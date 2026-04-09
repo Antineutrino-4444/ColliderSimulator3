@@ -21,6 +21,9 @@ public class EventGenerator {
     private static final double W_MASS = 80.377;
     private static final double Z_MASS = 91.1876;
 
+    /** Maximum events generated per process per tick to prevent runaway loops. */
+    private static final int MAX_EVENTS_PER_TICK = 50;
+
     private final CrossSectionTable crossSectionTable;
     private final ParticleDatabase particleDb;
     private final RandomService random;
@@ -35,8 +38,12 @@ public class EventGenerator {
 
     /**
      * Generates physics events for a luminosity slice.
+     * <p>
+     * The {@code total_inelastic} process is excluded from per-event
+     * generation because its enormous cross-section (~80 mb) is used only
+     * for pileup calculations, not for generating individual hard events.
      *
-     * @param sqrtS        centre-of-mass energy [GeV]
+     * @param sqrtS        centre-of-mass energy [TeV]
      * @param deltaLumiPb  integrated luminosity delivered in this slice [pb⁻¹]
      * @param eventCounter starting event number; incremented per event
      * @return list of generated physics events
@@ -49,9 +56,16 @@ public class EventGenerator {
 
         for (var entry : allProcs.entrySet()) {
             String procName = entry.getKey();
+            // total_inelastic is a bulk pileup rate, not an individual-event process
+            if ("total_inelastic".equals(procName)) {
+                continue;
+            }
             double sigma = crossSectionTable.getCrossSectionAt(procName, sqrtS);
             double expected = sigma * deltaLumiPb;
             int nEvents = random.nextPoisson(RandomService.EVENTS, expected);
+
+            // Safety cap: never generate more than MAX_EVENTS_PER_TICK per process
+            nEvents = Math.min(nEvents, MAX_EVENTS_PER_TICK);
 
             for (int i = 0; i < nEvents; i++) {
                 List<GeneratedParticle> particles = generateHardEvent(procName, sqrtS);

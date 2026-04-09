@@ -186,10 +186,10 @@ public class SimulationManager {
         // Convert to pb for event generation (1 fb = 1000 pb)
         double deltaLumiPb = deltaLumiFb * 1000.0;
 
-        // Generate events
-        double sqrtSGeV = currentEra.sqrtS() * 1000.0;
+        // Generate events — cross-section table is keyed in TeV
+        double sqrtSTeV = currentEra.sqrtS();
         List<PhysicsEvent> events = eventGenerator.generateEvents(
-                sqrtSGeV, deltaLumiPb, eventCounter);
+                sqrtSTeV, deltaLumiPb, eventCounter);
 
         List<List<ReconstructedObject>> allReco = new ArrayList<>();
         for (PhysicsEvent ev : events) {
