@@ -72,9 +72,16 @@ public class FourMomentum {
         return 0.5 * Math.log((pMag + pz) / (pMag - pz));
     }
 
-    /** Rapidity: y = 0.5 · ln((E + pz) / (E − pz)). */
+    /**
+     * Rapidity: y = 0.5 · ln((E + pz) / (E − pz)).
+     * Returns ±{@link Double#MAX_VALUE} when the denominator is near zero.
+     */
     public double rapidity() {
-        return 0.5 * Math.log((e + pz) / (e - pz));
+        double denom = e - pz;
+        if (Math.abs(denom) < ETA_GUARD) {
+            return pz >= 0 ? Double.MAX_VALUE : -Double.MAX_VALUE;
+        }
+        return 0.5 * Math.log((e + pz) / denom);
     }
 
     /** Azimuthal angle φ ∈ [−π, π]. */
