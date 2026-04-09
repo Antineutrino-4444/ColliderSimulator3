@@ -9,6 +9,7 @@ import com.lhcsim.game.controlroom.AlertSystem;
 import com.lhcsim.game.economy.BeamTimeManager;
 import com.lhcsim.physics.collision.CrossSectionTable;
 import com.lhcsim.physics.particles.ParticleDatabase;
+import com.lhcsim.render.screens.MainMenuScreen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,6 +52,8 @@ public class LHCSimGame extends Game {
         LOG.info("Loaded {} particles, {} processes",
                 particleDatabase.size(),
                 crossSectionTable.getAllProcesses().size());
+
+        setScreen(new MainMenuScreen(this));
     }
 
     @Override
