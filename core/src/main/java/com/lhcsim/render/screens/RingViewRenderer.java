@@ -6,6 +6,10 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
+import com.lhcsim.physics.accelerator.Lattice;
+import com.lhcsim.physics.accelerator.LatticeLoader;
+import com.lhcsim.physics.beam.Bunch;
+import com.lhcsim.render.ring.BetaFunctionPlot;
 
 /**
  * Draws a top-down schematic of the LHC accelerator ring as an octagon
@@ -48,6 +52,26 @@ public class RingViewRenderer {
     private float glowTimer;
 
     private final GlyphLayout layout = new GlyphLayout();
+
+    /** Beta function plot rendered below the ring schematic. */
+    private final BetaFunctionPlot betaPlot = new BetaFunctionPlot();
+    private boolean betaPlotInitialised;
+
+    /**
+     * Lazily initialises the beta function plot from the PS lattice.
+     * Called once on first render.
+     */
+    private void ensureBetaPlot() {
+        if (betaPlotInitialised) return;
+        betaPlotInitialised = true;
+        try {
+            Lattice ps = LatticeLoader.loadResource("/data/lattices/ps.json");
+            double gamma = 26.0 / Bunch.PROTON_MASS;
+            betaPlot.update(ps, gamma);
+        } catch (Exception e) {
+            // If the PS lattice can't be loaded, silently skip the plot
+        }
+    }
 
     // ── public API ─────────────────────────────────────────────────────
 
@@ -120,6 +144,14 @@ public class RingViewRenderer {
         drawIPLabels(batch, font, cx, cy, radius);
         drawCentreLabel(batch, font, cx, cy, machineName, energy);
         batch.end();
+
+        // ── beta function plot (bottom strip) ──────────────────────
+        ensureBetaPlot();
+        float plotH = h * 0.18f;
+        float plotY = 4f;
+        float plotX = 40f;
+        float plotW = w - 80f;
+        betaPlot.render(shapes, batch, font, plotX, plotY, plotW, plotH);
     }
 
     // ── background grid ────────────────────────────────────────────────
