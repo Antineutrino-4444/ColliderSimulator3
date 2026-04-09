@@ -1,0 +1,132 @@
+[
+  {
+    "name": "total_inelastic",
+    "label": "Total inelastic",
+    "signature": "pp → X",
+    "crossSections": {
+      "7":    73.5e9,
+      "8":    75.0e9,
+      "13":   78.0e9,
+      "13.6": 80.0e9,
+      "14":   80.5e9,
+      "100":  105.0e9
+    }
+  },
+  {
+    "name": "w_production",
+    "label": "W boson production",
+    "signature": "pp → W + X",
+    "crossSections": {
+      "7":    100500,
+      "8":    117300,
+      "13":   177300,
+      "13.6": 190000,
+      "14":   196000,
+      "100":  1150000
+    }
+  },
+  {
+    "name": "z_production",
+    "label": "Z boson production",
+    "signature": "pp → Z + X",
+    "crossSections": {
+      "7":    30500,
+      "8":    35600,
+      "13":   56100,
+      "13.6": 60000,
+      "14":   62000,
+      "100":  380000
+    }
+  },
+  {
+    "name": "ttbar",
+    "label": "Top pair production",
+    "signature": "pp → tt̄ + X",
+    "crossSections": {
+      "7":    177,
+      "8":    253,
+      "13":   832,
+      "13.6": 923,
+      "14":   985,
+      "100":  35000
+    }
+  },
+  {
+    "name": "higgs_ggf",
+    "label": "Higgs (ggF)",
+    "signature": "gg → H",
+    "crossSections": {
+      "7":    15.3,
+      "8":    19.3,
+      "13":   44.1,
+      "13.6": 48.6,
+      "14":   52.2,
+      "100":  802
+    }
+  },
+  {
+    "name": "higgs_vbf",
+    "label": "Higgs (VBF)",
+    "signature": "qq → qqH",
+    "crossSections": {
+      "7":    1.22,
+      "8":    1.58,
+      "13":   3.78,
+      "13.6": 4.08,
+      "14":   4.28,
+      "100":  79.0
+    }
+  },
+  {
+    "name": "di_higgs",
+    "label": "Di-Higgs",
+    "signature": "pp → HH + X",
+    "crossSections": {
+      "7":    0.006,
+      "8":    0.0088,
+      "13":   0.0311,
+      "13.6": 0.0348,
+      "14":   0.0374,
+      "100":  1.44
+    }
+  },
+  {
+    "name": "diboson_ww",
+    "label": "Diboson WW",
+    "signature": "pp → WW + X",
+    "crossSections": {
+      "7":    47.0,
+      "8":    57.3,
+      "13":   118.7,
+      "13.6": 127.0,
+      "14":   132.0,
+      "100":  990
+    }
+  },
+  {
+    "name": "diboson_wz",
+    "label": "Diboson WZ",
+    "signature": "pp → WZ + X",
+    "crossSections": {
+      "7":    20.3,
+      "8":    24.7,
+      "13":   48.2,
+      "13.6": 52.0,
+      "14":   54.0,
+      "100":  415
+    }
+  },
+  {
+    "name": "diboson_zz",
+    "label": "Diboson ZZ",
+    "signature": "pp → ZZ + X",
+    "crossSections": {
+      "7":    6.2,
+      "8":    7.6,
+      "13":   16.9,
+      "13.6": 18.4,
+      "14":   19.2,
+      "100":  146
+    }
+  }
+]

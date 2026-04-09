@@ -1,0 +1,360 @@
+[
+  {
+    "pdgId": 11,
+    "name": "electron",
+    "symbol": "e⁻",
+    "mass": 0.000511,
+    "width": 0,
+    "lifetime": 1e30,
+    "charge": -3,
+    "spin": 0.5,
+    "type": "lepton",
+    "decayChannels": []
+  },
+  {
+    "pdgId": -11,
+    "name": "positron",
+    "symbol": "e⁺",
+    "mass": 0.000511,
+    "width": 0,
+    "lifetime": 1e30,
+    "charge": 3,
+    "spin": 0.5,
+    "type": "lepton",
+    "decayChannels": []
+  },
+  {
+    "pdgId": 13,
+    "name": "muon",
+    "symbol": "μ⁻",
+    "mass": 0.10566,
+    "width": 3.0e-19,
+    "lifetime": 2.1969e-6,
+    "charge": -3,
+    "spin": 0.5,
+    "type": "lepton",
+    "decayChannels": []
+  },
+  {
+    "pdgId": -13,
+    "name": "antimuon",
+    "symbol": "μ⁺",
+    "mass": 0.10566,
+    "width": 3.0e-19,
+    "lifetime": 2.1969e-6,
+    "charge": 3,
+    "spin": 0.5,
+    "type": "lepton",
+    "decayChannels": []
+  },
+  {
+    "pdgId": 15,
+    "name": "tau",
+    "symbol": "τ⁻",
+    "mass": 1.77686,
+    "width": 2.267e-12,
+    "lifetime": 2.903e-13,
+    "charge": -3,
+    "spin": 0.5,
+    "type": "lepton",
+    "decayChannels": []
+  },
+  {
+    "pdgId": 12,
+    "name": "electron_neutrino",
+    "symbol": "νₑ",
+    "mass": 0,
+    "width": 0,
+    "lifetime": 1e30,
+    "charge": 0,
+    "spin": 0.5,
+    "type": "lepton",
+    "decayChannels": []
+  },
+  {
+    "pdgId": 14,
+    "name": "muon_neutrino",
+    "symbol": "ν_μ",
+    "mass": 0,
+    "width": 0,
+    "lifetime": 1e30,
+    "charge": 0,
+    "spin": 0.5,
+    "type": "lepton",
+    "decayChannels": []
+  },
+  {
+    "pdgId": 16,
+    "name": "tau_neutrino",
+    "symbol": "ν_τ",
+    "mass": 0,
+    "width": 0,
+    "lifetime": 1e30,
+    "charge": 0,
+    "spin": 0.5,
+    "type": "lepton",
+    "decayChannels": []
+  },
+  {
+    "pdgId": 22,
+    "name": "photon",
+    "symbol": "γ",
+    "mass": 0,
+    "width": 0,
+    "lifetime": 1e30,
+    "charge": 0,
+    "spin": 1.0,
+    "type": "boson",
+    "decayChannels": []
+  },
+  {
+    "pdgId": 21,
+    "name": "gluon",
+    "symbol": "g",
+    "mass": 0,
+    "width": 0,
+    "lifetime": 1e30,
+    "charge": 0,
+    "spin": 1.0,
+    "type": "boson",
+    "decayChannels": []
+  },
+  {
+    "pdgId": 23,
+    "name": "Z",
+    "symbol": "Z⁰",
+    "mass": 91.1876,
+    "width": 2.4952,
+    "lifetime": 2.6379e-25,
+    "charge": 0,
+    "spin": 1.0,
+    "type": "boson",
+    "decayChannels": [
+      { "branchingRatio": 0.2000, "products": [12, -12], "label": "Z → νν̄" },
+      { "branchingRatio": 0.0336, "products": [11, -11], "label": "Z → e⁺e⁻" },
+      { "branchingRatio": 0.0336, "products": [13, -13], "label": "Z → μ⁺μ⁻" },
+      { "branchingRatio": 0.0338, "products": [15, -15], "label": "Z → τ⁺τ⁻" },
+      { "branchingRatio": 0.6991, "products": [1, -1],   "label": "Z → qq̄" }
+    ]
+  },
+  {
+    "pdgId": 24,
+    "name": "W_plus",
+    "symbol": "W⁺",
+    "mass": 80.377,
+    "width": 2.085,
+    "lifetime": 3.157e-25,
+    "charge": 3,
+    "spin": 1.0,
+    "type": "boson",
+    "decayChannels": [
+      { "branchingRatio": 0.1071, "products": [-11, 12], "label": "W⁺ → e⁺νₑ" },
+      { "branchingRatio": 0.1063, "products": [-13, 14], "label": "W⁺ → μ⁺ν_μ" },
+      { "branchingRatio": 0.1138, "products": [-15, 16], "label": "W⁺ → τ⁺ν_τ" },
+      { "branchingRatio": 0.6728, "products": [2, -1],   "label": "W⁺ → qq̄'" }
+    ]
+  },
+  {
+    "pdgId": -24,
+    "name": "W_minus",
+    "symbol": "W⁻",
+    "mass": 80.377,
+    "width": 2.085,
+    "lifetime": 3.157e-25,
+    "charge": -3,
+    "spin": 1.0,
+    "type": "boson",
+    "decayChannels": [
+      { "branchingRatio": 0.1071, "products": [11, -12], "label": "W⁻ → e⁻ν̄ₑ" },
+      { "branchingRatio": 0.1063, "products": [13, -14], "label": "W⁻ → μ⁻ν̄_μ" },
+      { "branchingRatio": 0.1138, "products": [15, -16], "label": "W⁻ → τ⁻ν̄_τ" },
+      { "branchingRatio": 0.6728, "products": [-2, 1],   "label": "W⁻ → qq̄'" }
+    ]
+  },
+  {
+    "pdgId": 25,
+    "name": "Higgs",
+    "symbol": "H⁰",
+    "mass": 125.25,
+    "width": 0.00407,
+    "lifetime": 1.624e-22,
+    "charge": 0,
+    "spin": 0.0,
+    "type": "boson",
+    "decayChannels": [
+      { "branchingRatio": 0.5824,  "products": [5, -5],   "label": "H → bb̄" },
+      { "branchingRatio": 0.2137,  "products": [24, -24], "label": "H → WW*" },
+      { "branchingRatio": 0.0818,  "products": [21, 21],  "label": "H → gg" },
+      { "branchingRatio": 0.0632,  "products": [15, -15], "label": "H → τ⁺τ⁻" },
+      { "branchingRatio": 0.0289,  "products": [4, -4],   "label": "H → cc̄" },
+      { "branchingRatio": 0.0262,  "products": [23, 23],  "label": "H → ZZ*" },
+      { "branchingRatio": 0.00228, "products": [22, 22],  "label": "H → γγ" },
+      { "branchingRatio": 0.00154, "products": [23, 22],  "label": "H → Zγ" },
+      { "branchingRatio": 0.000217,"products": [13, -13], "label": "H → μ⁺μ⁻" }
+    ]
+  },
+  {
+    "pdgId": 2212,
+    "name": "proton",
+    "symbol": "p",
+    "mass": 0.938272,
+    "width": 0,
+    "lifetime": 1e30,
+    "charge": 3,
+    "spin": 0.5,
+    "type": "baryon",
+    "decayChannels": []
+  },
+  {
+    "pdgId": 2112,
+    "name": "neutron",
+    "symbol": "n",
+    "mass": 0.939565,
+    "width": 7.485e-28,
+    "lifetime": 879.4,
+    "charge": 0,
+    "spin": 0.5,
+    "type": "baryon",
+    "decayChannels": [
+      { "branchingRatio": 1.0, "products": [2212, 11, -12], "label": "n → p e⁻ ν̄ₑ" }
+    ]
+  },
+  {
+    "pdgId": 211,
+    "name": "pi_plus",
+    "symbol": "π⁺",
+    "mass": 0.13957,
+    "width": 2.5284e-17,
+    "lifetime": 2.6033e-8,
+    "charge": 3,
+    "spin": 0.0,
+    "type": "meson",
+    "decayChannels": []
+  },
+  {
+    "pdgId": -211,
+    "name": "pi_minus",
+    "symbol": "π⁻",
+    "mass": 0.13957,
+    "width": 2.5284e-17,
+    "lifetime": 2.6033e-8,
+    "charge": -3,
+    "spin": 0.0,
+    "type": "meson",
+    "decayChannels": []
+  },
+  {
+    "pdgId": 111,
+    "name": "pi_zero",
+    "symbol": "π⁰",
+    "mass": 0.13498,
+    "width": 7.73e-9,
+    "lifetime": 8.52e-17,
+    "charge": 0,
+    "spin": 0.0,
+    "type": "meson",
+    "decayChannels": [
+      { "branchingRatio": 0.9882, "products": [22, 22], "label": "π⁰ → γγ" }
+    ]
+  },
+  {
+    "pdgId": 321,
+    "name": "K_plus",
+    "symbol": "K⁺",
+    "mass": 0.49368,
+    "width": 5.317e-17,
+    "lifetime": 1.2380e-8,
+    "charge": 3,
+    "spin": 0.0,
+    "type": "meson",
+    "decayChannels": []
+  },
+  {
+    "pdgId": 6,
+    "name": "top",
+    "symbol": "t",
+    "mass": 172.76,
+    "width": 1.42,
+    "lifetime": 4.64e-25,
+    "charge": 2,
+    "spin": 0.5,
+    "type": "quark",
+    "decayChannels": [
+      { "branchingRatio": 1.0, "products": [24, 5], "label": "t → Wb" }
+    ]
+  },
+  {
+    "pdgId": -6,
+    "name": "antitop",
+    "symbol": "t̄",
+    "mass": 172.76,
+    "width": 1.42,
+    "lifetime": 4.64e-25,
+    "charge": -2,
+    "spin": 0.5,
+    "type": "quark",
+    "decayChannels": [
+      { "branchingRatio": 1.0, "products": [-24, -5], "label": "t̄ → W⁻b̄" }
+    ]
+  },
+  {
+    "pdgId": 5,
+    "name": "bottom",
+    "symbol": "b",
+    "mass": 4.18,
+    "width": 0,
+    "lifetime": 1e30,
+    "charge": -1,
+    "spin": 0.5,
+    "type": "quark",
+    "decayChannels": []
+  },
+  {
+    "pdgId": 4,
+    "name": "charm",
+    "symbol": "c",
+    "mass": 1.27,
+    "width": 0,
+    "lifetime": 1e30,
+    "charge": 2,
+    "spin": 0.5,
+    "type": "quark",
+    "decayChannels": []
+  },
+  {
+    "pdgId": 3,
+    "name": "strange",
+    "symbol": "s",
+    "mass": 0.093,
+    "width": 0,
+    "lifetime": 1e30,
+    "charge": -1,
+    "spin": 0.5,
+    "type": "quark",
+    "decayChannels": []
+  },
+  {
+    "pdgId": 2,
+    "name": "up",
+    "symbol": "u",
+    "mass": 0.00216,
+    "width": 0,
+    "lifetime": 1e30,
+    "charge": 2,
+    "spin": 0.5,
+    "type": "quark",
+    "decayChannels": []
+  },
+  {
+    "pdgId": 1,
+    "name": "down",
+    "symbol": "d",
+    "mass": 0.00467,
+    "width": 0,
+    "lifetime": 1e30,
+    "charge": -1,
+    "spin": 0.5,
+    "type": "quark",
+    "decayChannels": []
+  }
+]
