@@ -36,8 +36,8 @@ public class SimulationManager {
     public record BeamStateChanged(boolean beamOn) {}
 
     // ── LHC / collider parameters ──────────────────────────────────
-    private static final double LHC_CIRCUMFERENCE = 26_658.883;
-    private static final int NUM_BUNCHES = 2808;
+    public static final double LHC_CIRCUMFERENCE = 26_658.883;
+    public static final int NUM_BUNCHES = 2808;
     private static final double CROSSING_ANGLE = 285e-6;
     private static final double BETA_STAR_X = 0.30;
     private static final double BETA_STAR_Y = 0.30;

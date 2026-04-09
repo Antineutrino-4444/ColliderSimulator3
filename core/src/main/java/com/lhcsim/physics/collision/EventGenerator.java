@@ -66,11 +66,11 @@ public class EventGenerator {
      */
     private List<GeneratedParticle> generateHardEvent(String processName, double sqrtS) {
         return switch (processName) {
-            case "higgs_gg" -> generateHiggsEvent(sqrtS);
+            case "higgs_ggf" -> generateHiggsEvent(sqrtS);
             case "ttbar" -> generateTopPairEvent(sqrtS);
             case "w_production" -> generateWEvent(sqrtS);
             case "z_production" -> generateZEvent(sqrtS);
-            case "dijets" -> generateDijetEvent(sqrtS);
+            case "total_inelastic" -> generateDijetEvent(sqrtS);
             default -> generateGenericEvent(processName, sqrtS);
         };
     }

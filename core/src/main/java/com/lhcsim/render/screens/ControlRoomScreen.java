@@ -298,7 +298,8 @@ public class ControlRoomScreen extends ScreenAdapter {
             smallFont.draw(batch, String.format("Energy: %.0f GeV/beam",
                     sim.getBeam1().getEnergy()), x, y);
             y -= 18;
-            smallFont.draw(batch, String.format("Bunches: %d", 2808), x, y);
+            smallFont.draw(batch, String.format("Bunches: %d",
+                    SimulationManager.NUM_BUNCHES), x, y);
             y -= 18;
             smallFont.draw(batch, String.format("N/bunch: %.2e",
                     sim.getBeam1().getNumParticles()), x, y);
