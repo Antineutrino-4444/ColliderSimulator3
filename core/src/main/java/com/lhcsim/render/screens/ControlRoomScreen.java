@@ -18,7 +18,7 @@ import com.lhcsim.game.controlroom.SubsystemStatus;
 import com.lhcsim.game.economy.BeamTimeManager;
 import com.lhcsim.physics.collision.EventGenerator.PhysicsEvent;
 import com.lhcsim.physics.particles.ReconstructedObject;
-import com.lhcsim.render.LHCSimGame;
+import com.lhcsim.app.LhcSimGame;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +65,7 @@ public class ControlRoomScreen extends ScreenAdapter {
     private Tab activeTab = Tab.CONTROL_ROOM;
 
     // ── Dependencies ────────────────────────────────────────────────
-    private final LHCSimGame game;
+    private final LhcSimGame game;
     private final SimulationManager sim;
     private final TimeManager timeManager;
     private final BeamTimeManager beamTimeManager;
@@ -93,7 +93,7 @@ public class ControlRoomScreen extends ScreenAdapter {
     private List<ReconstructedObject> lastRecoObjects = new ArrayList<>();
     private float animTime;
 
-    public ControlRoomScreen(LHCSimGame game, SimulationManager sim) {
+    public ControlRoomScreen(LhcSimGame game, SimulationManager sim) {
         this.game = game;
         this.sim = sim;
         this.timeManager = game.getTimeManager();

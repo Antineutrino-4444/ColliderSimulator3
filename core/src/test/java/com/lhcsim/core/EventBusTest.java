@@ -59,4 +59,31 @@ class EventBusTest {
 
         assertThat(received).isEmpty();
     }
+
+    @Test
+    void testPublishAsync_deferredUntilDrain() {
+        List<String> received = new ArrayList<>();
+        bus.subscribe(String.class, received::add);
+
+        bus.publishAsync("deferred");
+
+        // Not delivered yet
+        assertThat(received).isEmpty();
+
+        // Drain delivers it
+        bus.drainAsync();
+        assertThat(received).containsExactly("deferred");
+    }
+
+    @Test
+    void testPublishAsync_multipleEvents() {
+        List<String> received = new ArrayList<>();
+        bus.subscribe(String.class, received::add);
+
+        bus.publishAsync("a");
+        bus.publishAsync("b");
+        bus.drainAsync();
+
+        assertThat(received).containsExactly("a", "b");
+    }
 }

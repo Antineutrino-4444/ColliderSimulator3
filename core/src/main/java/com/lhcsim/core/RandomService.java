@@ -1,30 +1,41 @@
 package com.lhcsim.core;
 
 import org.apache.commons.math3.distribution.PoissonDistribution;
-import org.apache.commons.math3.random.MersenneTwister;
+import org.apache.commons.math3.random.Well19937c;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * Centralized seeded random-number service. Each named stream gets a
+ * Centralized seeded random-number service.  Each named stream gets a
  * deterministic seed derived from the master seed so simulation runs
  * are fully reproducible.
+ * <p>
+ * Underlying generator: {@link Well19937c} (see Chunk 0.5).
+ * Seed derivation: {@code masterSeed XOR hash(streamName)}.
+ * <p>
+ * Streams: {@code optics}, {@code events}, {@code alerts}, {@code detector},
+ * {@code bsm}, {@code ui}.
  */
 public final class RandomService {
 
-    public static final String OPTICS   = "OPTICS";
-    public static final String EVENTS   = "EVENTS";
-    public static final String ALERTS   = "ALERTS";
-    public static final String DETECTOR = "DETECTOR";
-    public static final String BSM      = "BSM";
+    public static final String OPTICS   = "optics";
+    public static final String EVENTS   = "events";
+    public static final String ALERTS   = "alerts";
+    public static final String DETECTOR = "detector";
+    public static final String BSM      = "bsm";
+    public static final String UI       = "ui";
 
     private static final String[] DEFAULT_STREAMS = {
-            OPTICS, EVENTS, ALERTS, DETECTOR, BSM
+            OPTICS, EVENTS, ALERTS, DETECTOR, BSM, UI
     };
 
     private long masterSeed;
-    private final Map<String, MersenneTwister> streams = new LinkedHashMap<>();
+    private final Map<String, RngStream> streams = new LinkedHashMap<>();
+
+    // Backward compat: expose Well19937c as MersenneTwister was before
+    // (callers that accessed getStream(String) directly)
+    private final Map<String, Well19937c> rawStreams = new LinkedHashMap<>();
 
     public RandomService(long masterSeed) {
         this.masterSeed = masterSeed;
@@ -33,9 +44,12 @@ public final class RandomService {
 
     private void initStreams() {
         streams.clear();
-        for (int i = 0; i < DEFAULT_STREAMS.length; i++) {
-            long derived = masterSeed ^ (0x9E3779B97F4A7C15L * (i + 1));
-            streams.put(DEFAULT_STREAMS[i], new MersenneTwister(derived));
+        rawStreams.clear();
+        for (String name : DEFAULT_STREAMS) {
+            long derived = masterSeed ^ (long) name.hashCode();
+            RngStream rs = new RngStream(name, derived);
+            streams.put(name, rs);
+            rawStreams.put(name, rs.getRng());
         }
     }
 
@@ -49,67 +63,66 @@ public final class RandomService {
         return masterSeed;
     }
 
-    public MersenneTwister getStream(String name) {
-        MersenneTwister mt = streams.get(name);
-        if (mt == null) {
+    /** Get the named {@link RngStream} wrapper. */
+    public RngStream stream(String name) {
+        RngStream rs = streams.get(name);
+        if (rs == null) {
             throw new IllegalArgumentException("Unknown RNG stream: " + name);
         }
-        return mt;
+        return rs;
     }
 
-    public double nextGaussian(String stream, double mean, double sigma) {
-        return mean + getStream(stream).nextGaussian() * sigma;
+    /**
+     * Get the raw {@link Well19937c} for backward-compatible callers.
+     *
+     * @deprecated prefer {@link #stream(String)} which returns a
+     *             convenience {@link RngStream}.
+     */
+    @Deprecated
+    public Well19937c getStream(String name) {
+        Well19937c rng = rawStreams.get(name);
+        if (rng == null) {
+            // Try case-insensitive lookup for backward compat
+            String lower = name.toLowerCase(java.util.Locale.ROOT);
+            rng = rawStreams.get(lower);
+        }
+        if (rng == null) {
+            throw new IllegalArgumentException("Unknown RNG stream: " + name);
+        }
+        return rng;
     }
 
-    public double nextDouble(String stream) {
-        return getStream(stream).nextDouble();
+    // ── Convenience methods (delegate to RngStream) ────────────────
+
+    public double nextGaussian(String streamName, double mean, double sigma) {
+        return stream(streamName).nextGaussian(mean, sigma);
     }
 
-    public int nextInt(String stream, int bound) {
-        return getStream(stream).nextInt(bound);
+    public double nextDouble(String streamName) {
+        return stream(streamName).nextDouble();
+    }
+
+    public int nextInt(String streamName, int bound) {
+        return stream(streamName).nextInt(bound);
     }
 
     /**
      * Threshold above which we switch from the exact Poisson sampler
-     * (Apache Commons Math) to a fast Gaussian approximation.
-     * For large means the CLT gives Poisson(λ) ≈ N(λ, λ), and the
-     * exact sampler becomes very slow (~4 ms per call for λ > 100 000).
+     * to a fast Gaussian approximation.
      */
     private static final double POISSON_NORMAL_THRESHOLD = 1000.0;
 
     /**
      * Draw from a Poisson distribution with the given mean.
-     * <p>
-     * For large means (λ > {@value #POISSON_NORMAL_THRESHOLD}) a Gaussian
-     * approximation {@code round(λ + √λ · z)} is used instead of the
-     * exact rejection sampler, which is prohibitively slow for the event
-     * rates typical at the LHC (W production alone: ~200 000 pb × L).
      */
-    public int nextPoisson(String stream, double mean) {
-        if (mean <= 0.0) {
-            return 0;
-        }
-        if (mean >= POISSON_NORMAL_THRESHOLD) {
-            // Gaussian approximation: Poisson(λ) ≈ N(λ, λ)
-            double sample = mean + Math.sqrt(mean) * getStream(stream).nextGaussian();
-            return Math.max(0, (int) Math.round(sample));
-        }
-        PoissonDistribution poisson = new PoissonDistribution(
-                getStream(stream), mean,
-                PoissonDistribution.DEFAULT_EPSILON,
-                PoissonDistribution.DEFAULT_MAX_ITERATIONS);
-        return poisson.sample();
+    public int nextPoisson(String streamName, double mean) {
+        return stream(streamName).nextPoisson(mean);
     }
 
     /**
-     * Draw from an exponential distribution with the given mean,
-     * guarding against log(0).
+     * Draw from an exponential distribution with the given mean.
      */
-    public double nextExponential(String stream, double mean) {
-        double u;
-        do {
-            u = nextDouble(stream);
-        } while (u == 0.0);
-        return -mean * Math.log(u);
+    public double nextExponential(String streamName, double mean) {
+        return stream(streamName).nextExponential(mean);
     }
 }

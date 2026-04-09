@@ -1,0 +1,10 @@
+{
+  "windowWidth": 1280,
+  "windowHeight": 720,
+  "fullscreen": false,
+  "targetFps": 60,
+  "masterVolume": 1.0,
+  "difficulty": "normal",
+  "colorblindMode": false,
+  "locale": "en"
+}

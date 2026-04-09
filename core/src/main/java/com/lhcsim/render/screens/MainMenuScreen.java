@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.lhcsim.core.SimulationManager;
-import com.lhcsim.render.LHCSimGame;
+import com.lhcsim.app.LhcSimGame;
 
 /**
  * Main menu screen displayed when the game starts.
@@ -23,7 +23,7 @@ public class MainMenuScreen extends ScreenAdapter {
     private static final Color BTN_COLOR = new Color(0.15f, 0.3f, 0.6f, 1f);
     private static final Color BTN_HOVER = new Color(0.2f, 0.4f, 0.8f, 1f);
 
-    private final LHCSimGame game;
+    private final LhcSimGame game;
     private SpriteBatch batch;
     private ShapeRenderer shapes;
     private BitmapFont titleFont;
@@ -34,7 +34,7 @@ public class MainMenuScreen extends ScreenAdapter {
     // Button bounds (set during render)
     private float btnX, btnY, btnW, btnH;
 
-    public MainMenuScreen(LHCSimGame game) {
+    public MainMenuScreen(LhcSimGame game) {
         this.game = game;
     }
 

@@ -12,7 +12,7 @@ public class DesktopLauncher {
     public static void main(String[] args) {
         Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
         config.setTitle("LHC Simulator");
-        config.setWindowedMode(1600, 900);
+        config.setWindowedMode(1280, 720);
         config.setForegroundFPS(60);
         config.useVsync(true);
         config.setInitialBackgroundColor(
