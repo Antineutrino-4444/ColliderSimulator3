@@ -1,5 +1,6 @@
 package com.lhcsim.physics.collision;
 
+import com.lhcsim.physics.beam.Beam;
 import com.lhcsim.physics.beam.Bunch;
 import com.lhcsim.physics.beam.TwissParameters;
 import org.junit.jupiter.api.Test;
@@ -71,5 +72,20 @@ class LuminosityCalculatorTest {
         double fb = LuminosityCalculator.toInverseFemtobarns(cm2);
         double backCm2 = LuminosityCalculator.fromInverseFemtobarns(fb);
         assertThat(backCm2).isCloseTo(cm2, within(cm2 * 1e-10));
+    }
+
+    // ── Tests for the new Beam-based API ────────────────────────────
+
+    @Test
+    void testInstantaneousWithBeamApi() {
+        TwissParameters tw = new TwissParameters(0.55, 0, 0.55, 0, 0, 0);
+        Bunch bunch = new Bunch(1.15e11, 3.75e-6, 3.75e-6, 0.0755, 1.13e-4, 7000.0, tw);
+        Beam b1 = Beam.uniform(bunch, 2808, 3564, 26_658.883);
+        Beam b2 = Beam.uniform(bunch, 2808, 3564, 26_658.883);
+        InteractionPoint ip = new InteractionPoint("IP1", 285e-6, 0.55, 0.55);
+
+        double lumi = LuminosityCalculator.instantaneous(b1, b2, ip);
+        // LHC design luminosity ~ 1e34 cm^-2 s^-1, within an order of magnitude
+        assertThat(lumi).isBetween(1e33, 2e34);
     }
 }

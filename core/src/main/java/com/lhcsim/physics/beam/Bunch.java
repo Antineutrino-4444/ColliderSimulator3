@@ -79,6 +79,24 @@ public class Bunch {
     }
 
     /**
+     * RMS horizontal beam size at the interaction point.
+     * Alias for {@link #beamSizeX()} when the Twiss stored in this bunch
+     * corresponds to the IP optics (i.e. β* is set).
+     */
+    public double sigmaXAtIp() {
+        return beamSizeX();
+    }
+
+    /**
+     * RMS vertical beam size at the interaction point.
+     * Alias for {@link #beamSizeY()} when the Twiss stored in this bunch
+     * corresponds to the IP optics.
+     */
+    public double sigmaYAtIp() {
+        return beamSizeY();
+    }
+
+    /**
      * Magnetic rigidity Bρ = p / (c · 10⁻⁹) expressed in T·m, where
      * p = √(E² − m²) [GeV/c] and the constant 0.299792458 converts
      * GeV/c to T·m.

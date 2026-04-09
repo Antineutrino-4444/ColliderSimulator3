@@ -1,5 +1,7 @@
 package com.lhcsim.physics.collision;
 
+import com.lhcsim.physics.Constants;
+import com.lhcsim.physics.beam.Beam;
 import com.lhcsim.physics.beam.Bunch;
 
 /**
@@ -9,9 +11,34 @@ import com.lhcsim.physics.beam.Bunch;
 public final class LuminosityCalculator {
 
     /** Speed of light [m/s]. */
-    private static final double C_LIGHT = 299_792_458.0;
+    private static final double C_LIGHT = Constants.c;
 
     private LuminosityCalculator() {
+    }
+
+    /**
+     * Instantaneous luminosity from two beams at an interaction point.
+     * <p>
+     * L = (N1 * N2 * f_rev * n_b) / (4pi * sigma_x * sigma_y) * F
+     * where F = 1 / sqrt(1 + (theta_c * sigma_z / (2 * sigma_x))^2)
+     * is the geometric reduction factor from the crossing angle.
+     *
+     * @param b1 beam 1
+     * @param b2 beam 2
+     * @param ip interaction point configuration
+     * @return instantaneous luminosity [cm^-2 s^-1]
+     */
+    public static double instantaneous(Beam b1, Beam b2, InteractionPoint ip) {
+        if (b1.getBunches().isEmpty() || b2.getBunches().isEmpty()) return 0;
+
+        Bunch bunch1 = b1.getBunches().get(0);
+        Bunch bunch2 = b2.getBunches().get(0);
+        int numBunches = Math.min(b1.getFilledBuckets(), b2.getFilledBuckets());
+
+        return instantaneousLuminosity(
+                bunch1, bunch2, numBunches,
+                ip.crossingAngle(), b1.getCircumference(),
+                ip.betaStarX(), ip.betaStarY());
     }
 
     /**
