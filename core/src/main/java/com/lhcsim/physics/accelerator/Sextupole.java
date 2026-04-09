@@ -9,7 +9,7 @@ import com.lhcsim.physics.beam.TransferMatrix;
  * their contribution enters only through second-order (chromatic) terms.
  * The transfer matrix is therefore a simple drift.
  */
-public class Sextupole extends AcceleratorElement {
+public class Sextupole extends AcceleratorElement implements LatticeElement {
 
     private final double strength;
 
@@ -35,5 +35,25 @@ public class Sextupole extends AcceleratorElement {
 
     public double getStrength() {
         return strength;
+    }
+
+    @Override
+    public String name() {
+        return getName();
+    }
+
+    @Override
+    public double length() {
+        return getLength();
+    }
+
+    @Override
+    public TransferMatrix matrix(double brho) {
+        return TransferMatrix.identity();
+    }
+
+    @Override
+    public ElementType type() {
+        return ElementType.SEXTUPOLE;
     }
 }

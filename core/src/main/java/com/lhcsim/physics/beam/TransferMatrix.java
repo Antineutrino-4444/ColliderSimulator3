@@ -181,6 +181,37 @@ public class TransferMatrix {
     // ── Instance methods ────────────────────────────────────────────
 
     /**
+     * Applies this transfer matrix to a phase-space vector.
+     *
+     * @param ps the input phase-space 6-vector
+     * @return the transported phase-space vector
+     */
+    public PhaseSpace apply(PhaseSpace ps) {
+        SimpleMatrix v = new SimpleMatrix(6, 1);
+        double[] a = ps.toArray();
+        for (int i = 0; i < 6; i++) {
+            v.set(i, 0, a[i]);
+        }
+        SimpleMatrix result = matrix.mult(v);
+        return new PhaseSpace(
+                result.get(0, 0), result.get(1, 0),
+                result.get(2, 0), result.get(3, 0),
+                result.get(4, 0), result.get(5, 0));
+    }
+
+    /**
+     * Composes this matrix with another: <b>result = this · other</b>.
+     * Equivalent to {@link #multiply(TransferMatrix)} but named to
+     * match the plan specification.
+     *
+     * @param other the matrix to compose with (applied first)
+     * @return a new {@code TransferMatrix} representing the combined transport
+     */
+    public TransferMatrix compose(TransferMatrix other) {
+        return multiply(other);
+    }
+
+    /**
      * Composes two transfer matrices: <b>M_total = this · other</b>.
      *
      * @param other the matrix to multiply on the right
@@ -198,6 +229,25 @@ public class TransferMatrix {
     /** Returns a defensive copy of the underlying 6×6 matrix. */
     public SimpleMatrix getMatrix() {
         return matrix.copy();
+    }
+
+    /**
+     * Returns the matrix inverse, if it exists.
+     *
+     * @return a new {@code TransferMatrix} that is the inverse of this one
+     */
+    public TransferMatrix inverse() {
+        return new TransferMatrix(matrix.invert());
+    }
+
+    /**
+     * Returns the determinant of the 6×6 matrix.
+     * For a symplectic matrix this should be exactly 1.
+     *
+     * @return the determinant
+     */
+    public double det() {
+        return matrix.determinant();
     }
 
     /**

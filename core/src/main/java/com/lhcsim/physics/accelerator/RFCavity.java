@@ -6,7 +6,7 @@ import com.lhcsim.physics.beam.TransferMatrix;
 /**
  * RF cavity element providing longitudinal focusing.
  */
-public class RFCavity extends AcceleratorElement {
+public class RFCavity extends AcceleratorElement implements LatticeElement {
 
     private final double voltage;
     private final double frequency;
@@ -64,5 +64,28 @@ public class RFCavity extends AcceleratorElement {
 
     public double getCircumference() {
         return circumference;
+    }
+
+    @Override
+    public String name() {
+        return getName();
+    }
+
+    @Override
+    public double length() {
+        return getLength();
+    }
+
+    @Override
+    public TransferMatrix matrix(double brho) {
+        double momentum = brho * 0.299792458;
+        double energy = Math.sqrt(momentum * momentum + Bunch.PROTON_MASS * Bunch.PROTON_MASS);
+        double gamma = energy / Bunch.PROTON_MASS;
+        return getTransferMatrix(gamma);
+    }
+
+    @Override
+    public ElementType type() {
+        return ElementType.RFCAVITY;
     }
 }

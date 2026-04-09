@@ -6,7 +6,7 @@ import com.lhcsim.physics.beam.TransferMatrix;
 /**
  * Thick quadrupole magnet (focusing or defocusing depending on gradient sign).
  */
-public class Quadrupole extends AcceleratorElement {
+public class Quadrupole extends AcceleratorElement implements LatticeElement {
 
     private static final double C_LIGHT_GEV_TO_TM = 0.299792458;
 
@@ -38,5 +38,29 @@ public class Quadrupole extends AcceleratorElement {
 
     public double getGradient() {
         return gradient;
+    }
+
+    @Override
+    public String name() {
+        return getName();
+    }
+
+    @Override
+    public double length() {
+        return getLength();
+    }
+
+    @Override
+    public TransferMatrix matrix(double brho) {
+        double k = gradient / brho;
+        double momentum = brho * 0.299792458;
+        double energy = Math.sqrt(momentum * momentum + Bunch.PROTON_MASS * Bunch.PROTON_MASS);
+        double gamma = energy / Bunch.PROTON_MASS;
+        return TransferMatrix.thickQuadrupole(getLength(), k, gamma);
+    }
+
+    @Override
+    public ElementType type() {
+        return ElementType.QUADRUPOLE;
     }
 }

@@ -126,6 +126,34 @@ public class Lattice {
         return Collections.unmodifiableList(elements);
     }
 
+    /**
+     * Finds an element by name.
+     *
+     * @param elementName the element name to search for
+     * @return the element, or {@code null} if not found
+     */
+    public AcceleratorElement findByName(String elementName) {
+        for (AcceleratorElement el : elements) {
+            if (el.getName().equals(elementName)) {
+                return el;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Returns the total length of all elements in the lattice.
+     *
+     * @return total length [m]
+     */
+    public double totalLength() {
+        double total = 0;
+        for (AcceleratorElement el : elements) {
+            total += el.getLength();
+        }
+        return total;
+    }
+
     // ── Inner record ────────────────────────────────────────────────
 
     /**
