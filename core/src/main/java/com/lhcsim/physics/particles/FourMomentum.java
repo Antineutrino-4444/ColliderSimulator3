@@ -115,6 +115,35 @@ public class FourMomentum {
         return new FourMomentum(newE, px, py, newPz);
     }
 
+    /**
+     * Applies a general Lorentz boost.
+     *
+     * @param boost the {@link LorentzBoost} to apply
+     * @return the boosted four-momentum
+     */
+    public FourMomentum boost(LorentzBoost boost) {
+        return boost.apply(this);
+    }
+
+    /** Component-wise subtraction of two four-momenta. */
+    public FourMomentum subtract(FourMomentum other) {
+        return new FourMomentum(
+                this.e - other.e,
+                this.px - other.px,
+                this.py - other.py,
+                this.pz - other.pz);
+    }
+
+    /** Scalar multiplication. */
+    public FourMomentum scale(double factor) {
+        return new FourMomentum(e * factor, px * factor, py * factor, pz * factor);
+    }
+
+    /** Squared invariant mass: m² = E² − |p|². */
+    public double mass2() {
+        return e * e - px * px - py * py - pz * pz;
+    }
+
     // ── Getters ─────────────────────────────────────────────────────
 
     public double getE() {
