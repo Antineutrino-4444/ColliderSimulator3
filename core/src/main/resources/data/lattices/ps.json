@@ -1,0 +1,2408 @@
+{
+  "_comment": "Simplified 100-cell CERN Proton Synchrotron lattice. Cite: CERN PS design report. Target tunes: Qx=6.24, Qy=6.27 at 26 GeV extraction energy.",
+  "name": "PS",
+  "circumference": 628.3185,
+  "referenceEnergy": 26.0,
+  "elements": [
+    {
+      "type": "QUAD",
+      "name": "QF.000",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.000.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.000",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.000.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.001",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.001.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.001",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.001.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.002",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.002.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.002",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.002.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.003",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.003.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.003",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.003.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.004",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.004.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.004",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.004.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.005",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.005.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.005",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.005.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.006",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.006.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.006",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.006.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.007",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.007.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.007",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.007.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.008",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.008.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.008",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.008.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.009",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.009.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.009",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.009.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.010",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.010.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.010",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.010.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.011",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.011.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.011",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.011.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.012",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.012.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.012",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.012.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.013",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.013.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.013",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.013.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.014",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.014.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.014",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.014.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.015",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.015.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.015",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.015.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.016",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.016.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.016",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.016.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.017",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.017.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.017",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.017.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.018",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.018.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.018",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.018.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.019",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.019.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.019",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.019.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.020",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.020.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.020",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.020.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.021",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.021.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.021",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.021.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.022",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.022.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.022",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.022.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.023",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.023.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.023",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.023.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.024",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.024.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.024",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.024.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.025",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.025.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.025",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.025.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.026",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.026.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.026",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.026.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.027",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.027.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.027",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.027.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.028",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.028.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.028",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.028.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.029",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.029.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.029",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.029.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.030",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.030.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.030",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.030.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.031",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.031.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.031",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.031.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.032",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.032.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.032",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.032.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.033",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.033.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.033",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.033.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.034",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.034.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.034",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.034.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.035",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.035.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.035",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.035.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.036",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.036.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.036",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.036.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.037",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.037.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.037",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.037.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.038",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.038.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.038",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.038.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.039",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.039.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.039",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.039.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.040",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.040.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.040",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.040.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.041",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.041.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.041",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.041.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.042",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.042.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.042",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.042.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.043",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.043.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.043",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.043.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.044",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.044.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.044",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.044.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.045",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.045.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.045",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.045.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.046",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.046.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.046",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.046.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.047",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.047.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.047",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.047.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.048",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.048.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.048",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.048.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.049",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.049.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.049",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.049.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.050",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.050.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.050",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.050.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.051",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.051.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.051",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.051.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.052",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.052.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.052",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.052.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.053",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.053.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.053",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.053.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.054",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.054.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.054",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.054.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.055",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.055.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.055",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.055.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.056",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.056.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.056",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.056.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.057",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.057.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.057",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.057.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.058",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.058.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.058",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.058.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.059",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.059.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.059",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.059.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.060",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.060.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.060",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.060.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.061",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.061.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.061",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.061.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.062",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.062.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.062",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.062.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.063",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.063.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.063",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.063.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.064",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.064.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.064",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.064.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.065",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.065.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.065",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.065.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.066",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.066.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.066",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.066.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.067",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.067.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.067",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.067.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.068",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.068.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.068",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.068.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.069",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.069.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.069",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.069.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.070",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.070.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.070",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.070.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.071",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.071.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.071",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.071.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.072",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.072.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.072",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.072.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.073",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.073.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.073",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.073.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.074",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.074.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.074",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.074.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.075",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.075.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.075",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.075.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.076",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.076.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.076",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.076.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.077",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.077.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.077",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.077.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.078",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.078.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.078",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.078.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.079",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.079.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.079",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.079.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.080",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.080.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.080",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.080.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.081",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.081.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.081",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.081.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.082",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.082.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.082",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.082.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.083",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.083.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.083",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.083.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.084",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.084.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.084",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.084.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.085",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.085.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.085",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.085.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.086",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.086.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.086",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.086.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.087",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.087.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.087",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.087.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.088",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.088.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.088",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.088.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.089",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.089.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.089",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.089.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.090",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.090.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.090",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.090.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.091",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.091.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.091",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.091.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.092",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.092.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.092",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.092.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.093",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.093.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.093",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.093.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.094",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.094.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.094",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.094.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.095",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.095.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.095",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.095.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.096",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.096.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.096",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.096.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.097",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.097.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.097",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.097.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.098",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.098.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.098",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.098.2",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QF.099",
+      "length": 0.1,
+      "gradient": 107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.099.1",
+      "length": 3.041593,
+      "field": 0.895197
+    },
+    {
+      "type": "QUAD",
+      "name": "QD.099",
+      "length": 0.1,
+      "gradient": -107.4729
+    },
+    {
+      "type": "DIPOLE",
+      "name": "MB.099.2",
+      "length": 3.041593,
+      "field": 0.895197
+    }
+  ]
+}

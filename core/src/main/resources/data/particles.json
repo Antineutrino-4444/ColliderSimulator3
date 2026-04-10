@@ -1,0 +1,147 @@
+[
+  {"pdgId":11,"name":"electron","symbol":"e-","mass":0.000511,"width":0,"lifetime":1e30,"charge":-3,"spin":0.5,"type":"lepton","decayChannels":[]},
+  {"pdgId":-11,"name":"positron","symbol":"e+","mass":0.000511,"width":0,"lifetime":1e30,"charge":3,"spin":0.5,"type":"lepton","decayChannels":[]},
+  {"pdgId":13,"name":"muon","symbol":"mu-","mass":0.10566,"width":3.0e-19,"lifetime":2.1969e-6,"charge":-3,"spin":0.5,"type":"lepton","decayChannels":[]},
+  {"pdgId":-13,"name":"antimuon","symbol":"mu+","mass":0.10566,"width":3.0e-19,"lifetime":2.1969e-6,"charge":3,"spin":0.5,"type":"lepton","decayChannels":[]},
+  {"pdgId":15,"name":"tau","symbol":"tau-","mass":1.77686,"width":2.267e-12,"lifetime":2.903e-13,"charge":-3,"spin":0.5,"type":"lepton","decayChannels":[]},
+  {"pdgId":-15,"name":"antitau","symbol":"tau+","mass":1.77686,"width":2.267e-12,"lifetime":2.903e-13,"charge":3,"spin":0.5,"type":"lepton","decayChannels":[]},
+  {"pdgId":12,"name":"electron_neutrino","symbol":"nu_e","mass":0,"width":0,"lifetime":1e30,"charge":0,"spin":0.5,"type":"lepton","decayChannels":[]},
+  {"pdgId":-12,"name":"electron_antineutrino","symbol":"nu_e_bar","mass":0,"width":0,"lifetime":1e30,"charge":0,"spin":0.5,"type":"lepton","decayChannels":[]},
+  {"pdgId":14,"name":"muon_neutrino","symbol":"nu_mu","mass":0,"width":0,"lifetime":1e30,"charge":0,"spin":0.5,"type":"lepton","decayChannels":[]},
+  {"pdgId":-14,"name":"muon_antineutrino","symbol":"nu_mu_bar","mass":0,"width":0,"lifetime":1e30,"charge":0,"spin":0.5,"type":"lepton","decayChannels":[]},
+  {"pdgId":16,"name":"tau_neutrino","symbol":"nu_tau","mass":0,"width":0,"lifetime":1e30,"charge":0,"spin":0.5,"type":"lepton","decayChannels":[]},
+  {"pdgId":-16,"name":"tau_antineutrino","symbol":"nu_tau_bar","mass":0,"width":0,"lifetime":1e30,"charge":0,"spin":0.5,"type":"lepton","decayChannels":[]},
+  {"pdgId":2,"name":"up","symbol":"u","mass":0.00216,"width":0,"lifetime":1e30,"charge":2,"spin":0.5,"type":"quark","decayChannels":[]},
+  {"pdgId":-2,"name":"anti_up","symbol":"u_bar","mass":0.00216,"width":0,"lifetime":1e30,"charge":-2,"spin":0.5,"type":"quark","decayChannels":[]},
+  {"pdgId":1,"name":"down","symbol":"d","mass":0.00467,"width":0,"lifetime":1e30,"charge":-1,"spin":0.5,"type":"quark","decayChannels":[]},
+  {"pdgId":-1,"name":"anti_down","symbol":"d_bar","mass":0.00467,"width":0,"lifetime":1e30,"charge":1,"spin":0.5,"type":"quark","decayChannels":[]},
+  {"pdgId":3,"name":"strange","symbol":"s","mass":0.093,"width":0,"lifetime":1e30,"charge":-1,"spin":0.5,"type":"quark","decayChannels":[]},
+  {"pdgId":-3,"name":"anti_strange","symbol":"s_bar","mass":0.093,"width":0,"lifetime":1e30,"charge":1,"spin":0.5,"type":"quark","decayChannels":[]},
+  {"pdgId":4,"name":"charm","symbol":"c","mass":1.27,"width":0,"lifetime":1e30,"charge":2,"spin":0.5,"type":"quark","decayChannels":[]},
+  {"pdgId":-4,"name":"anti_charm","symbol":"c_bar","mass":1.27,"width":0,"lifetime":1e30,"charge":-2,"spin":0.5,"type":"quark","decayChannels":[]},
+  {"pdgId":5,"name":"bottom","symbol":"b","mass":4.18,"width":0,"lifetime":1e30,"charge":-1,"spin":0.5,"type":"quark","decayChannels":[]},
+  {"pdgId":-5,"name":"anti_bottom","symbol":"b_bar","mass":4.18,"width":0,"lifetime":1e30,"charge":1,"spin":0.5,"type":"quark","decayChannels":[]},
+  {"pdgId":6,"name":"top","symbol":"t","mass":172.76,"width":1.42,"lifetime":4.64e-25,"charge":2,"spin":0.5,"type":"quark","decayChannels":[{"branchingRatio":1.0,"products":[24,5],"label":"t -> Wb"}]},
+  {"pdgId":-6,"name":"antitop","symbol":"t_bar","mass":172.76,"width":1.42,"lifetime":4.64e-25,"charge":-2,"spin":0.5,"type":"quark","decayChannels":[{"branchingRatio":1.0,"products":[-24,-5],"label":"t_bar -> W-b_bar"}]},
+  {"pdgId":22,"name":"photon","symbol":"gamma","mass":0,"width":0,"lifetime":1e30,"charge":0,"spin":1.0,"type":"boson","decayChannels":[]},
+  {"pdgId":21,"name":"gluon","symbol":"g","mass":0,"width":0,"lifetime":1e30,"charge":0,"spin":1.0,"type":"boson","decayChannels":[]},
+  {"pdgId":23,"name":"Z","symbol":"Z0","mass":91.1876,"width":2.4952,"lifetime":2.6379e-25,"charge":0,"spin":1.0,"type":"boson","decayChannels":[
+    {"branchingRatio":0.2000,"products":[12,-12],"label":"Z -> nu nu_bar"},
+    {"branchingRatio":0.0336,"products":[11,-11],"label":"Z -> e+e-"},
+    {"branchingRatio":0.0336,"products":[13,-13],"label":"Z -> mu+mu-"},
+    {"branchingRatio":0.0338,"products":[15,-15],"label":"Z -> tau+tau-"},
+    {"branchingRatio":0.6991,"products":[1,-1],"label":"Z -> qq_bar"}
+  ]},
+  {"pdgId":24,"name":"W_plus","symbol":"W+","mass":80.377,"width":2.085,"lifetime":3.157e-25,"charge":3,"spin":1.0,"type":"boson","decayChannels":[
+    {"branchingRatio":0.1071,"products":[-11,12],"label":"W+ -> e+nu_e"},
+    {"branchingRatio":0.1063,"products":[-13,14],"label":"W+ -> mu+nu_mu"},
+    {"branchingRatio":0.1138,"products":[-15,16],"label":"W+ -> tau+nu_tau"},
+    {"branchingRatio":0.6728,"products":[2,-1],"label":"W+ -> qq_bar'"}
+  ]},
+  {"pdgId":-24,"name":"W_minus","symbol":"W-","mass":80.377,"width":2.085,"lifetime":3.157e-25,"charge":-3,"spin":1.0,"type":"boson","decayChannels":[
+    {"branchingRatio":0.1071,"products":[11,-12],"label":"W- -> e-nu_e_bar"},
+    {"branchingRatio":0.1063,"products":[13,-14],"label":"W- -> mu-nu_mu_bar"},
+    {"branchingRatio":0.1138,"products":[15,-16],"label":"W- -> tau-nu_tau_bar"},
+    {"branchingRatio":0.6728,"products":[-2,1],"label":"W- -> qq_bar'"}
+  ]},
+  {"pdgId":25,"name":"Higgs","symbol":"H0","mass":125.20,"width":0.00407,"lifetime":1.624e-22,"charge":0,"spin":0.0,"type":"boson","decayChannels":[
+    {"branchingRatio":0.5824,"products":[5,-5],"label":"H -> bb_bar"},
+    {"branchingRatio":0.2137,"products":[24,-24],"label":"H -> WW*"},
+    {"branchingRatio":0.0818,"products":[21,21],"label":"H -> gg"},
+    {"branchingRatio":0.0632,"products":[15,-15],"label":"H -> tau+tau-"},
+    {"branchingRatio":0.0289,"products":[4,-4],"label":"H -> cc_bar"},
+    {"branchingRatio":0.0262,"products":[23,23],"label":"H -> ZZ*"},
+    {"branchingRatio":0.00227,"products":[22,22],"label":"H -> gamma gamma"},
+    {"branchingRatio":0.00154,"products":[23,22],"label":"H -> Z gamma"},
+    {"branchingRatio":0.000217,"products":[13,-13],"label":"H -> mu+mu-"}
+  ]},
+  {"pdgId":211,"name":"pi_plus","symbol":"pi+","mass":0.13957,"width":2.5284e-17,"lifetime":2.6033e-8,"charge":3,"spin":0.0,"type":"meson","decayChannels":[]},
+  {"pdgId":-211,"name":"pi_minus","symbol":"pi-","mass":0.13957,"width":2.5284e-17,"lifetime":2.6033e-8,"charge":-3,"spin":0.0,"type":"meson","decayChannels":[]},
+  {"pdgId":111,"name":"pi_zero","symbol":"pi0","mass":0.13498,"width":7.73e-9,"lifetime":8.52e-17,"charge":0,"spin":0.0,"type":"meson","decayChannels":[
+    {"branchingRatio":0.9882,"products":[22,22],"label":"pi0 -> gamma gamma"},
+    {"branchingRatio":0.0118,"products":[22,11,-11],"label":"pi0 -> gamma e+e-"}
+  ]},
+  {"pdgId":321,"name":"K_plus","symbol":"K+","mass":0.49368,"width":5.317e-17,"lifetime":1.2380e-8,"charge":3,"spin":0.0,"type":"meson","decayChannels":[]},
+  {"pdgId":-321,"name":"K_minus","symbol":"K-","mass":0.49368,"width":5.317e-17,"lifetime":1.2380e-8,"charge":-3,"spin":0.0,"type":"meson","decayChannels":[]},
+  {"pdgId":311,"name":"K_zero","symbol":"K0","mass":0.49761,"width":0,"lifetime":1e30,"charge":0,"spin":0.0,"type":"meson","decayChannels":[]},
+  {"pdgId":-311,"name":"K_zero_bar","symbol":"K0_bar","mass":0.49761,"width":0,"lifetime":1e30,"charge":0,"spin":0.0,"type":"meson","decayChannels":[]},
+  {"pdgId":310,"name":"K_short","symbol":"K_S","mass":0.49761,"width":7.35e-15,"lifetime":8.954e-11,"charge":0,"spin":0.0,"type":"meson","decayChannels":[
+    {"branchingRatio":0.6920,"products":[211,-211],"label":"K_S -> pi+pi-"},
+    {"branchingRatio":0.3069,"products":[111,111],"label":"K_S -> pi0pi0"},
+    {"branchingRatio":0.0011,"products":[211,-211,22],"label":"K_S -> pi+pi-gamma"}
+  ]},
+  {"pdgId":130,"name":"K_long","symbol":"K_L","mass":0.49761,"width":1.287e-17,"lifetime":5.116e-8,"charge":0,"spin":0.0,"type":"meson","decayChannels":[]},
+  {"pdgId":411,"name":"D_plus","symbol":"D+","mass":1.86966,"width":6.33e-13,"lifetime":1.040e-12,"charge":3,"spin":0.0,"type":"meson","decayChannels":[]},
+  {"pdgId":-411,"name":"D_minus","symbol":"D-","mass":1.86966,"width":6.33e-13,"lifetime":1.040e-12,"charge":-3,"spin":0.0,"type":"meson","decayChannels":[]},
+  {"pdgId":421,"name":"D_zero","symbol":"D0","mass":1.86484,"width":1.605e-12,"lifetime":4.101e-13,"charge":0,"spin":0.0,"type":"meson","decayChannels":[]},
+  {"pdgId":-421,"name":"D_zero_bar","symbol":"D0_bar","mass":1.86484,"width":1.605e-12,"lifetime":4.101e-13,"charge":0,"spin":0.0,"type":"meson","decayChannels":[]},
+  {"pdgId":431,"name":"D_s_plus","symbol":"D_s+","mass":1.96835,"width":1.305e-12,"lifetime":5.040e-13,"charge":3,"spin":0.0,"type":"meson","decayChannels":[]},
+  {"pdgId":-431,"name":"D_s_minus","symbol":"D_s-","mass":1.96835,"width":1.305e-12,"lifetime":5.040e-13,"charge":-3,"spin":0.0,"type":"meson","decayChannels":[]},
+  {"pdgId":521,"name":"B_plus","symbol":"B+","mass":5.27934,"width":4.018e-13,"lifetime":1.638e-12,"charge":3,"spin":0.0,"type":"meson","decayChannels":[]},
+  {"pdgId":-521,"name":"B_minus","symbol":"B-","mass":5.27934,"width":4.018e-13,"lifetime":1.638e-12,"charge":-3,"spin":0.0,"type":"meson","decayChannels":[]},
+  {"pdgId":511,"name":"B_zero","symbol":"B0","mass":5.27966,"width":4.333e-13,"lifetime":1.519e-12,"charge":0,"spin":0.0,"type":"meson","decayChannels":[]},
+  {"pdgId":-511,"name":"B_zero_bar","symbol":"B0_bar","mass":5.27966,"width":4.333e-13,"lifetime":1.519e-12,"charge":0,"spin":0.0,"type":"meson","decayChannels":[]},
+  {"pdgId":531,"name":"B_s","symbol":"B_s","mass":5.36688,"width":4.368e-13,"lifetime":1.510e-12,"charge":0,"spin":0.0,"type":"meson","decayChannels":[]},
+  {"pdgId":-531,"name":"B_s_bar","symbol":"B_s_bar","mass":5.36688,"width":4.368e-13,"lifetime":1.510e-12,"charge":0,"spin":0.0,"type":"meson","decayChannels":[]},
+  {"pdgId":443,"name":"J_psi","symbol":"J/psi","mass":3.09690,"width":9.34e-5,"lifetime":7.09e-21,"charge":0,"spin":1.0,"type":"meson","decayChannels":[
+    {"branchingRatio":0.0594,"products":[11,-11],"label":"J/psi -> e+e-"},
+    {"branchingRatio":0.0593,"products":[13,-13],"label":"J/psi -> mu+mu-"},
+    {"branchingRatio":0.8813,"products":[21,21,21],"label":"J/psi -> hadrons"}
+  ]},
+  {"pdgId":553,"name":"Upsilon_1S","symbol":"Y(1S)","mass":9.46040,"width":5.40e-5,"lifetime":1.22e-20,"charge":0,"spin":1.0,"type":"meson","decayChannels":[
+    {"branchingRatio":0.0238,"products":[11,-11],"label":"Y(1S) -> e+e-"},
+    {"branchingRatio":0.0248,"products":[13,-13],"label":"Y(1S) -> mu+mu-"},
+    {"branchingRatio":0.0260,"products":[15,-15],"label":"Y(1S) -> tau+tau-"},
+    {"branchingRatio":0.9254,"products":[21,21,21],"label":"Y(1S) -> hadrons"}
+  ]},
+  {"pdgId":441,"name":"eta_c","symbol":"eta_c","mass":2.9839,"width":0.0320,"lifetime":2.06e-23,"charge":0,"spin":0.0,"type":"meson","decayChannels":[]},
+  {"pdgId":113,"name":"rho_zero","symbol":"rho0","mass":0.77526,"width":0.1474,"lifetime":4.41e-24,"charge":0,"spin":1.0,"type":"meson","decayChannels":[
+    {"branchingRatio":1.0,"products":[211,-211],"label":"rho0 -> pi+pi-"}
+  ]},
+  {"pdgId":223,"name":"omega_782","symbol":"omega","mass":0.78266,"width":0.00868,"lifetime":7.75e-23,"charge":0,"spin":1.0,"type":"meson","decayChannels":[]},
+  {"pdgId":333,"name":"phi_1020","symbol":"phi","mass":1.01946,"width":0.00426,"lifetime":1.55e-22,"charge":0,"spin":1.0,"type":"meson","decayChannels":[
+    {"branchingRatio":0.489,"products":[321,-321],"label":"phi -> K+K-"},
+    {"branchingRatio":0.342,"products":[310,130],"label":"phi -> K_S K_L"},
+    {"branchingRatio":0.153,"products":[113,111],"label":"phi -> rho pi0"},
+    {"branchingRatio":0.016,"products":[211,-211,111],"label":"phi -> pi+pi-pi0"}
+  ]},
+  {"pdgId":2212,"name":"proton","symbol":"p","mass":0.938272,"width":0,"lifetime":1e30,"charge":3,"spin":0.5,"type":"baryon","decayChannels":[]},
+  {"pdgId":-2212,"name":"antiproton","symbol":"p_bar","mass":0.938272,"width":0,"lifetime":1e30,"charge":-3,"spin":0.5,"type":"baryon","decayChannels":[]},
+  {"pdgId":2112,"name":"neutron","symbol":"n","mass":0.939565,"width":7.485e-28,"lifetime":879.4,"charge":0,"spin":0.5,"type":"baryon","decayChannels":[
+    {"branchingRatio":1.0,"products":[2212,11,-12],"label":"n -> p e- nu_e_bar"}
+  ]},
+  {"pdgId":-2112,"name":"antineutron","symbol":"n_bar","mass":0.939565,"width":7.485e-28,"lifetime":879.4,"charge":0,"spin":0.5,"type":"baryon","decayChannels":[]},
+  {"pdgId":3122,"name":"Lambda","symbol":"Lambda","mass":1.11568,"width":2.501e-15,"lifetime":2.632e-10,"charge":0,"spin":0.5,"type":"baryon","decayChannels":[
+    {"branchingRatio":0.639,"products":[2212,-211],"label":"Lambda -> p pi-"},
+    {"branchingRatio":0.358,"products":[2112,111],"label":"Lambda -> n pi0"},
+    {"branchingRatio":0.003,"products":[2112,22],"label":"Lambda -> n gamma"}
+  ]},
+  {"pdgId":3222,"name":"Sigma_plus","symbol":"Sigma+","mass":1.18937,"width":8.209e-15,"lifetime":8.018e-11,"charge":3,"spin":0.5,"type":"baryon","decayChannels":[
+    {"branchingRatio":0.516,"products":[2212,111],"label":"Sigma+ -> p pi0"},
+    {"branchingRatio":0.484,"products":[2112,211],"label":"Sigma+ -> n pi+"}
+  ]},
+  {"pdgId":3212,"name":"Sigma_zero","symbol":"Sigma0","mass":1.19264,"width":8.9e-6,"lifetime":7.4e-20,"charge":0,"spin":0.5,"type":"baryon","decayChannels":[
+    {"branchingRatio":1.0,"products":[3122,22],"label":"Sigma0 -> Lambda gamma"}
+  ]},
+  {"pdgId":3112,"name":"Sigma_minus","symbol":"Sigma-","mass":1.19745,"width":4.45e-15,"lifetime":1.479e-10,"charge":-3,"spin":0.5,"type":"baryon","decayChannels":[
+    {"branchingRatio":0.9985,"products":[2112,-211],"label":"Sigma- -> n pi-"},
+    {"branchingRatio":0.0015,"products":[2112,11,-12],"label":"Sigma- -> n e- nu_e_bar"}
+  ]},
+  {"pdgId":3322,"name":"Xi_zero","symbol":"Xi0","mass":1.31486,"width":2.27e-15,"lifetime":2.90e-10,"charge":0,"spin":0.5,"type":"baryon","decayChannels":[
+    {"branchingRatio":0.9952,"products":[3122,111],"label":"Xi0 -> Lambda pi0"},
+    {"branchingRatio":0.0048,"products":[3122,22],"label":"Xi0 -> Lambda gamma"}
+  ]},
+  {"pdgId":3312,"name":"Xi_minus","symbol":"Xi-","mass":1.32171,"width":4.02e-15,"lifetime":1.639e-10,"charge":-3,"spin":0.5,"type":"baryon","decayChannels":[
+    {"branchingRatio":0.9988,"products":[3122,-211],"label":"Xi- -> Lambda pi-"},
+    {"branchingRatio":0.0012,"products":[3112,111],"label":"Xi- -> Sigma- pi0 (approx)"}
+  ]},
+  {"pdgId":3334,"name":"Omega_minus","symbol":"Omega-","mass":1.67245,"width":8.02e-15,"lifetime":8.21e-11,"charge":-3,"spin":1.5,"type":"baryon","decayChannels":[
+    {"branchingRatio":0.678,"products":[3122,-321],"label":"Omega- -> Lambda K-"},
+    {"branchingRatio":0.236,"products":[3322,-211],"label":"Omega- -> Xi0 pi-"},
+    {"branchingRatio":0.086,"products":[3312,111],"label":"Omega- -> Xi- pi0"}
+  ]},
+  {"pdgId":4122,"name":"Lambda_c","symbol":"Lambda_c+","mass":2.28646,"width":3.30e-12,"lifetime":2.00e-13,"charge":3,"spin":0.5,"type":"baryon","decayChannels":[]},
+  {"pdgId":5122,"name":"Lambda_b","symbol":"Lambda_b","mass":5.61960,"width":4.49e-13,"lifetime":1.466e-12,"charge":0,"spin":0.5,"type":"baryon","decayChannels":[]},
+  {"pdgId":541,"name":"B_c_plus","symbol":"B_c+","mass":6.27447,"width":1.29e-12,"lifetime":5.10e-13,"charge":3,"spin":0.0,"type":"meson","decayChannels":[]},
+  {"pdgId":10433,"name":"D_s1_2536","symbol":"D_s1(2536)+","mass":2.53511,"width":0.00092,"lifetime":7.16e-22,"charge":3,"spin":1.0,"type":"meson","decayChannels":[]}
+]

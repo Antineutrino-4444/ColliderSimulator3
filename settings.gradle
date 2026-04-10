@@ -1,0 +1,3 @@
+rootProject.name = 'ColliderSimulator3'
+include ':core'
+include ':desktop'
