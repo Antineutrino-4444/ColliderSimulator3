@@ -59,7 +59,7 @@ class LundLiteTest {
             long charged = hadrons.stream()
                     .filter(h -> isCharged(h.pdgId()))
                     .count();
-            totalCharged += charged;
+            totalCharged += (int) charged;
         }
 
         double avgCharged = (double) totalCharged / nEvents;
